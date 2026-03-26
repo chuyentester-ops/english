@@ -253,7 +253,57 @@
       <div class="feedback-msg" id="fb-L1Q8"></div>
     </div>
   </div>
-  <div class="pager" id="pager-0"><button class="pager-btn" id="prev-0" onclick="changePage(0,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-0">1 / 8</span><button class="pager-btn primary" id="next-0" onclick="changePage(0,1)">Next →</button></div>
+  <div class="q-slide" id="L1Q9">
+    <div class="ex-card">
+      <div class="ex-type">📝 Complete the Sentence</div>
+      <div class="ex-question">Choose the correct word to complete the sentence.</div>
+      <div class="pic-for-word">🐒</div>
+      <div class="sentence-blank">The <span class="blank-slot" id="blank-L1Q9">___</span> eats a mango.</div>
+      <div class="word-choices" id="wc-L1Q9">
+        <button class="word-btn" onclick="answerFill(this,'L1Q9','monkey','monkey')">monkey</button>
+        <button class="word-btn" onclick="answerFill(this,'L1Q9','mouse','monkey')">mouse</button>
+        <button class="word-btn" onclick="answerFill(this,'L1Q9','milk','monkey')">milk</button>
+      </div>
+      <div class="feedback-msg" id="fb-L1Q9"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L1Q10">
+    <div class="ex-card">
+      <div class="ex-type">🔡 Correct Spelling</div>
+      <div class="ex-question">Choose the correct spelling.</div>
+      <div style="font-size:68px;text-align:center;margin-bottom:12px;">🌙</div>
+      <div class="spell-choices">
+        <button class="spell-option" onclick="answerSpell(this,'L1Q10','mone','moon')">A. mone</button>
+        <button class="spell-option" onclick="answerSpell(this,'L1Q10','moon','moon')">B. moon</button>
+        <button class="spell-option" onclick="answerSpell(this,'L1Q10','muun','moon')">C. muun</button>
+      </div>
+      <div class="feedback-msg" id="fb-L1Q10"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L1Q11">
+    <div class="ex-card">
+      <div class="ex-type">✅ True or False</div>
+      <div class="ex-question">Look at the picture and the word. Is it correct? Click <b>T</b> (True) or <b>F</b> (False).</div>
+      <div class="pic-for-word">🐭</div>
+      <div style="text-align:center;font-size:26px;font-weight:900;margin-bottom:14px;">mouse</div>
+      <div class="tf-choices">
+        <button class="tf-btn" data-val="T" onclick="answerTF(this,'L1Q11','T','T')">T</button>
+        <button class="tf-btn" data-val="F" onclick="answerTF(this,'L1Q11','F','T')">F</button>
+      </div>
+      <div class="feedback-msg" id="fb-L1Q11"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L1Q12">
+    <div class="ex-card">
+      <div class="ex-type">✏️ Missing Letter</div>
+      <div class="ex-question">Write <b>ONE</b> letter to complete the word.</div>
+      <div class="pic-for-word">🗺️</div>
+      <div class="missing-letter-wrap">m<input class="missing-letter-input" id="ml-inp-L1Q12" maxlength="1" placeholder="_" autocomplete="off">p</div>
+      <button class="check-btn" onclick="checkMissingLetter('L1Q12','a')">Check ✓</button>
+      <div class="feedback-msg" id="fb-L1Q12"></div>
+    </div>
+  </div>
+  <div class="pager" id="pager-0"><button class="pager-btn" id="prev-0" onclick="changePage(0,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-0">1 / 12</span><button class="pager-btn primary" id="next-0" onclick="changePage(0,1)">Next →</button></div>
 </div>
 
 <!-- LESSON 2 -->
@@ -370,7 +420,58 @@
       <div class="feedback-msg" id="fb-L2Q9"></div>
     </div>
   </div>
-  <div class="pager" id="pager-1"><button class="pager-btn" id="prev-1" onclick="changePage(1,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-1">1 / 9</span><button class="pager-btn primary" id="next-1" onclick="changePage(1,1)">Next →</button></div>
+  <div class="q-slide" id="L2Q10">
+    <div class="ex-card">
+      <div class="ex-type">📝 Complete the Sentence</div>
+      <div class="ex-question">Choose the correct word to complete the sentence.</div>
+      <div class="pic-for-word">📚</div>
+      <div class="sentence-blank">I read a <span class="blank-slot" id="blank-L2Q10">___</span>.</div>
+      <div class="word-choices" id="wc-L2Q10">
+        <button class="word-btn" onclick="answerFill(this,'L2Q10','book','book')">book</button>
+        <button class="word-btn" onclick="answerFill(this,'L2Q10','bag','book')">bag</button>
+        <button class="word-btn" onclick="answerFill(this,'L2Q10','bell','book')">bell</button>
+      </div>
+      <div class="feedback-msg" id="fb-L2Q10"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L2Q11">
+    <div class="ex-card">
+      <div class="ex-type">🔍 Find the Mistake</div>
+      <div class="ex-question"><em>Click</em> the misspelled word.</div>
+      <div class="pic-for-word" style="font-size:52px;">🎒</div>
+      <div class="underline-sentence" id="sent-L2Q11">
+        <span class="word-span" onclick="togU(this)">She</span><span class="word-span" onclick="togU(this)">puts</span><span class="word-span" onclick="togU(this)">her</span><span class="word-span" onclick="togU(this)">boks</span><span class="word-span" onclick="togU(this)">in</span><span class="word-span" onclick="togU(this)">her</span><span class="word-span" onclick="togU(this)">bag.</span>
+      </div>
+      <p class="answer-hint">Correct spelling: books</p>
+      <button class="check-btn" onclick="checkUnderline('L2Q11',['boks'])">Check ✓</button>
+      <div class="feedback-msg" id="fb-L2Q11"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L2Q12">
+    <div class="ex-card">
+      <div class="ex-type">✅ True or False</div>
+      <div class="ex-question">Look at the picture and the word. Is it correct? Click <b>T</b> (True) or <b>F</b> (False).</div>
+      <div class="pic-for-word">📏</div>
+      <div style="text-align:center;font-size:26px;font-weight:900;margin-bottom:14px;">pencil</div>
+      <div class="tf-choices">
+        <button class="tf-btn" data-val="T" onclick="answerTF(this,'L2Q12','T','F')">T</button>
+        <button class="tf-btn" data-val="F" onclick="answerTF(this,'L2Q12','F','F')">F</button>
+      </div>
+      <p class="answer-hint">It is a ruler, not a pencil.</p>
+      <div class="feedback-msg" id="fb-L2Q12"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L2Q13">
+    <div class="ex-card">
+      <div class="ex-type">✏️ Missing Letter</div>
+      <div class="ex-question">Write <b>ONE</b> letter to complete the word.</div>
+      <div class="pic-for-word">🎒</div>
+      <div class="missing-letter-wrap">b<input class="missing-letter-input" id="ml-inp-L2Q13" maxlength="1" placeholder="_" autocomplete="off">g</div>
+      <button class="check-btn" onclick="checkMissingLetter('L2Q13','a')">Check ✓</button>
+      <div class="feedback-msg" id="fb-L2Q13"></div>
+    </div>
+  </div>
+  <div class="pager" id="pager-1"><button class="pager-btn" id="prev-1" onclick="changePage(1,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-1">1 / 13</span><button class="pager-btn primary" id="next-1" onclick="changePage(1,1)">Next →</button></div>
 </div>
 
 <!-- LESSON 3 -->
@@ -495,7 +596,38 @@
       <div class="feedback-msg" id="fb-L3Q10"></div>
     </div>
   </div>
-  <div class="pager" id="pager-2"><button class="pager-btn" id="prev-2" onclick="changePage(2,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-2">1 / 10</span><button class="pager-btn primary" id="next-2" onclick="changePage(2,1)">Next →</button></div>
+  <div class="q-slide" id="L3Q11">
+    <div class="ex-card">
+      <div class="ex-type">🔡 Correct Spelling</div>
+      <div class="ex-question">Choose the correct spelling.</div>
+      <div style="font-size:68px;text-align:center;margin-bottom:12px;">👃</div>
+      <div class="spell-choices">
+        <button class="spell-option" onclick="answerSpell(this,'L3Q11','nouse','nose')">A. nouse</button>
+        <button class="spell-option" onclick="answerSpell(this,'L3Q11','noze','nose')">B. noze</button>
+        <button class="spell-option" onclick="answerSpell(this,'L3Q11','nose','nose')">C. nose</button>
+      </div>
+      <div class="feedback-msg" id="fb-L3Q11"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L3Q12">
+    <div class="ex-card">
+      <div class="ex-type">🔗 Look and Match</div>
+      <div class="ex-question">Match each picture to the correct word.</div>
+      <div class="match-grid">
+        <div>
+          <div class="match-col-label">Pictures</div>
+          <div style="display:flex;flex-direction:column;gap:8px;" id="match-left-L3Q12"></div>
+        </div>
+        <div>
+          <div class="match-col-label">Words</div>
+          <div style="display:flex;flex-direction:column;gap:8px;" id="match-right-L3Q12"></div>
+        </div>
+      </div>
+      <button class="check-btn" onclick="checkMatch('L3Q12')">Check Matches ✓</button>
+      <div class="feedback-msg" id="fb-L3Q12"></div>
+    </div>
+  </div>
+  <div class="pager" id="pager-2"><button class="pager-btn" id="prev-2" onclick="changePage(2,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-2">1 / 12</span><button class="pager-btn primary" id="next-2" onclick="changePage(2,1)">Next →</button></div>
 </div>
 
 <!-- LESSON 4 -->
@@ -627,7 +759,34 @@
       <div class="feedback-msg" id="fb-L4Q10"></div>
     </div>
   </div>
-  <div class="pager" id="pager-3"><button class="pager-btn" id="prev-3" onclick="changePage(3,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-3">1 / 10</span><button class="pager-btn primary" id="next-3" onclick="changePage(3,1)">Next →</button></div>
+  <div class="q-slide" id="L4Q11">
+    <div class="ex-card">
+      <div class="ex-type">📝 Complete the Sentence</div>
+      <div class="ex-question">Choose the correct word to complete the sentence.</div>
+      <div class="pic-for-word">🐢</div>
+      <div class="sentence-blank">I can see a <span class="blank-slot" id="blank-L4Q11">___</span>.</div>
+      <div class="word-choices" id="wc-L4Q11">
+        <button class="word-btn" onclick="answerFill(this,'L4Q11','turtle','turtle')">turtle</button>
+        <button class="word-btn" onclick="answerFill(this,'L4Q11','top','turtle')">top</button>
+        <button class="word-btn" onclick="answerFill(this,'L4Q11','tree','turtle')">tree</button>
+      </div>
+      <div class="feedback-msg" id="fb-L4Q11"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L4Q12">
+    <div class="ex-card">
+      <div class="ex-type">🔡 Correct Spelling</div>
+      <div class="ex-question">Choose the correct spelling.</div>
+      <div style="font-size:68px;text-align:center;margin-bottom:12px;">🐢</div>
+      <div class="spell-choices">
+        <button class="spell-option" onclick="answerSpell(this,'L4Q12','turtel','turtle')">A. turtel</button>
+        <button class="spell-option" onclick="answerSpell(this,'L4Q12','turtle','turtle')">B. turtle</button>
+        <button class="spell-option" onclick="answerSpell(this,'L4Q12','turttle','turtle')">C. turttle</button>
+      </div>
+      <div class="feedback-msg" id="fb-L4Q12"></div>
+    </div>
+  </div>
+  <div class="pager" id="pager-3"><button class="pager-btn" id="prev-3" onclick="changePage(3,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-3">1 / 12</span><button class="pager-btn primary" id="next-3" onclick="changePage(3,1)">Next →</button></div>
 </div>
 
 <!-- LESSON 5 -->
@@ -751,7 +910,39 @@
       <div class="feedback-msg" id="fb-L5Q10"></div>
     </div>
   </div>
-  <div class="pager" id="pager-4"><button class="pager-btn" id="prev-4" onclick="changePage(4,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-4">1 / 10</span><button class="pager-btn primary" id="next-4" onclick="changePage(4,1)">Next →</button></div>
+  <div class="q-slide" id="L5Q11">
+    <div class="ex-card">
+      <div class="ex-type">📝 Complete the Sentence</div>
+      <div class="ex-question">Choose the correct word to complete the sentence.</div>
+      <div class="pic-for-word">🧃</div>
+      <div class="sentence-blank">She drinks <span class="blank-slot" id="blank-L5Q11">___</span>.</div>
+      <div class="word-choices" id="wc-L5Q11">
+        <button class="word-btn" onclick="answerFill(this,'L5Q11','juice','juice')">juice</button>
+        <button class="word-btn" onclick="answerFill(this,'L5Q11','kite','juice')">kite</button>
+        <button class="word-btn" onclick="answerFill(this,'L5Q11','goat','juice')">goat</button>
+      </div>
+      <div class="feedback-msg" id="fb-L5Q11"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L5Q12">
+    <div class="ex-card">
+      <div class="ex-type">🔗 Look and Match</div>
+      <div class="ex-question">Match each picture to the correct word.</div>
+      <div class="match-grid">
+        <div>
+          <div class="match-col-label">Pictures</div>
+          <div style="display:flex;flex-direction:column;gap:8px;" id="match-left-L5Q12"></div>
+        </div>
+        <div>
+          <div class="match-col-label">Words</div>
+          <div style="display:flex;flex-direction:column;gap:8px;" id="match-right-L5Q12"></div>
+        </div>
+      </div>
+      <button class="check-btn" onclick="checkMatch('L5Q12')">Check Matches ✓</button>
+      <div class="feedback-msg" id="fb-L5Q12"></div>
+    </div>
+  </div>
+  <div class="pager" id="pager-4"><button class="pager-btn" id="prev-4" onclick="changePage(4,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-4">1 / 12</span><button class="pager-btn primary" id="next-4" onclick="changePage(4,1)">Next →</button></div>
 </div>
 
 <!-- LESSON 6 -->
@@ -877,7 +1068,34 @@
       <div class="feedback-msg" id="fb-L6Q10"></div>
     </div>
   </div>
-  <div class="pager" id="pager-5"><button class="pager-btn" id="prev-5" onclick="changePage(5,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-5">1 / 10</span><button class="pager-btn primary" id="next-5" onclick="changePage(5,1)">🎉 Finish!</button></div>
+  <div class="q-slide" id="L6Q11">
+    <div class="ex-card">
+      <div class="ex-type">📝 Complete the Sentence</div>
+      <div class="ex-question">Choose the correct word to complete the sentence.</div>
+      <div class="pic-for-word">🍋</div>
+      <div class="sentence-blank">Look at the <span class="blank-slot" id="blank-L6Q11">___</span>.</div>
+      <div class="word-choices" id="wc-L6Q11">
+        <button class="word-btn" onclick="answerFill(this,'L6Q11','lemons','lemons')">lemons</button>
+        <button class="word-btn" onclick="answerFill(this,'L6Q11','lake','lemons')">lake</button>
+        <button class="word-btn" onclick="answerFill(this,'L6Q11','lunchbox','lemons')">lunchbox</button>
+      </div>
+      <div class="feedback-msg" id="fb-L6Q11"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L6Q12">
+    <div class="ex-card">
+      <div class="ex-type">🔡 Correct Spelling</div>
+      <div class="ex-question">Choose the correct spelling.</div>
+      <div style="font-size:68px;text-align:center;margin-bottom:12px;">🥡</div>
+      <div class="spell-choices">
+        <button class="spell-option" onclick="answerSpell(this,'L6Q12','lunchboks','lunchbox')">A. lunchboks</button>
+        <button class="spell-option" onclick="answerSpell(this,'L6Q12','lunchbox','lunchbox')">B. lunchbox</button>
+        <button class="spell-option" onclick="answerSpell(this,'L6Q12','lunchboxx','lunchbox')">C. lunchboxx</button>
+      </div>
+      <div class="feedback-msg" id="fb-L6Q12"></div>
+    </div>
+  </div>
+  <div class="pager" id="pager-5"><button class="pager-btn" id="prev-5" onclick="changePage(5,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-5">1 / 12</span><button class="pager-btn primary" id="next-5" onclick="changePage(5,1)">🎉 Finish!</button></div>
   <div class="complete-banner" id="completeBanner">
     <div class="big-star">⭐</div>
     <h3>Amazing! You finished all 6 lessons!</h3>
@@ -894,12 +1112,12 @@
 <script>
 /* ─── Lesson structure ─────────────────────────────────────────── */
 const LESSONS = [
-  {qids:['L1Q1','L1Q2','L1Q3','L1Q4','L1Q5','L1Q6','L1Q7','L1Q8']},
-  {qids:['L2Q1','L2Q2','L2Q3','L2Q4','L2Q5','L2Q6','L2Q7','L2Q8','L2Q9']},
-  {qids:['L3Q1','L3Q2','L3Q3','L3Q4','L3Q5','L3Q6','L3Q7','L3Q8','L3Q9','L3Q10']},
-  {qids:['L4Q1','L4Q2','L4Q3','L4Q4','L4Q5','L4Q6','L4Q7','L4Q8','L4Q9','L4Q10']},
-  {qids:['L5Q1','L5Q2','L5Q3','L5Q4','L5Q5','L5Q6','L5Q7','L5Q8','L5Q9','L5Q10']},
-  {qids:['L6Q1','L6Q2','L6Q3','L6Q4','L6Q5','L6Q6','L6Q7','L6Q8','L6Q9','L6Q10']},
+  {qids:['L1Q1','L1Q2','L1Q3','L1Q4','L1Q5','L1Q6','L1Q7','L1Q8','L1Q9','L1Q10','L1Q11','L1Q12']},
+  {qids:['L2Q1','L2Q2','L2Q3','L2Q4','L2Q5','L2Q6','L2Q7','L2Q8','L2Q9','L2Q10','L2Q11','L2Q12','L2Q13']},
+  {qids:['L3Q1','L3Q2','L3Q3','L3Q4','L3Q5','L3Q6','L3Q7','L3Q8','L3Q9','L3Q10','L3Q11','L3Q12']},
+  {qids:['L4Q1','L4Q2','L4Q3','L4Q4','L4Q5','L4Q6','L4Q7','L4Q8','L4Q9','L4Q10','L4Q11','L4Q12']},
+  {qids:['L5Q1','L5Q2','L5Q3','L5Q4','L5Q5','L5Q6','L5Q7','L5Q8','L5Q9','L5Q10','L5Q11','L5Q12']},
+  {qids:['L6Q1','L6Q2','L6Q3','L6Q4','L6Q5','L6Q6','L6Q7','L6Q8','L6Q9','L6Q10','L6Q11','L6Q12']},
 ];
 
 /* ─── State ────────────────────────────────────────────────────── */
@@ -942,15 +1160,18 @@ const UNDERLINE_ANS = {
   L5Q5:['girl','has','hat','juice.','king','kite','lion','moon.'],
   L5Q6:['gote'],
   L6Q6:['Look','lemons','lake.','lion','leaf','leg','lunchbox.'],
-  L6Q7:['runing.']
+  L6Q7:['runing.'],
+  L2Q11:['boks']
 };
 
 /* ─── Missing letter answer map ─────────────────────────────────── */
 const MISSING_LETTER_ANS = {
-  L3Q10:'u',   // n_ts  → nuts
-  L4Q10:'o',   // t_p   → top
-  L5Q10:'a',   // h_t   → hat
-  L6Q10:'e',   // l_af  → leaf
+  L1Q12:'a',   // m_p  → map
+  L2Q13:'a',   // b_g  → bag
+  L3Q10:'u',   // n_ts → nuts
+  L4Q10:'o',   // t_p  → top
+  L5Q10:'a',   // h_t  → hat
+  L6Q10:'e',   // l_af → leaf
 };
 
 /* ─── Look & Match config — pairs define both columns ─────────── */
@@ -962,6 +1183,24 @@ const MATCH_CONFIG = {
       {key:'b', imageLabel:'b &nbsp;<span style="font-size:34px">📏</span>', wordLabel:'a ruler'},
       {key:'c', imageLabel:'c &nbsp;<span style="font-size:34px">✏️</span>', wordLabel:'a pencil'},
       {key:'d', imageLabel:'d &nbsp;<span style="font-size:34px">🖋️</span>', wordLabel:'a pen'},
+    ]
+  },
+  'L3Q12': {
+    lp:'ml3q12-', rp:'mr3q12-',
+    pairs:[
+      {key:'noodles',  imageLabel:'<span style="font-size:28px">🍜</span>', wordLabel:'noodles'},
+      {key:'nuts',     imageLabel:'<span style="font-size:28px">🥜🥜🥜</span>', wordLabel:'nuts'},
+      {key:'bananas',  imageLabel:'<span style="font-size:28px">🍌🍌🍌</span>', wordLabel:'bananas'},
+      {key:'nose',     imageLabel:'<span style="font-size:34px">👃</span>', wordLabel:'nose'},
+    ]
+  },
+  'L5Q12': {
+    lp:'ml5q12-', rp:'mr5q12-',
+    pairs:[
+      {key:'goat',  imageLabel:'<span style="font-size:34px">🐐</span>', wordLabel:'goat'},
+      {key:'hat',   imageLabel:'<span style="font-size:34px">🧢</span>', wordLabel:'hat'},
+      {key:'kite',  imageLabel:'<span style="font-size:34px">🪁</span>', wordLabel:'kite'},
+      {key:'lion',  imageLabel:'<span style="font-size:34px">🦁</span>', wordLabel:'lion'},
     ]
   },
   'L4Q8': {
