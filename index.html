@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Lessons – Young Learners</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green:#2d6a4f; --green-light:#d8f3dc; --green-mid:#52b788;
+    --blue:#4361ee; --blue-light:#e8edff;
+    --red:#e63946; --yellow-light:#fffbe6;
+    --bg:#f8faf9; --text:#1a1a2e; --muted:#6b7280;
+    --border:#e5e7eb; --radius:14px; --shadow:0 4px 20px rgba(0,0,0,0.08);
+  }
+  body { font-family:'Nunito',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; padding:0 0 60px; }
+  .site-header { background:var(--green); padding:18px 24px 14px; color:white; display:flex; align-items:center; justify-content:center; gap:14px; box-shadow:0 3px 16px rgba(45,106,79,0.3); text-align:center; }
+  .site-header .logo { font-size:30px; }
+  .site-header h1 { font-size:19px; font-weight:800; line-height:1.2; }
+  .site-header p  { font-size:12px; opacity:.85; margin-top:2px; }
+  .progress-wrap { background:#e9ecef; height:6px; }
+  .progress-bar  { background:var(--green-mid); height:6px; transition:width 0.4s ease; width:0%; }
+  .progress-text { text-align:center; font-size:12px; color:var(--muted); padding:6px 0 0; font-weight:700; }
+  .tabs { display:flex; gap:6px; padding:16px 20px 0; overflow-x:auto; justify-content:center; }
+  .tab { padding:7px 16px; border-radius:30px; border:2px solid var(--border); background:white; font-family:'Nunito',sans-serif; font-weight:700; font-size:12px; cursor:pointer; white-space:nowrap; transition:all 0.2s; color:var(--muted); }
+  .tab:hover { border-color:var(--green-mid); color:var(--green); }
+  .tab.active { background:var(--green); border-color:var(--green); color:white; }
+  .lesson { display:none; padding:16px 20px; max-width:780px; margin:0 auto; }
+  .lesson.active { display:block; }
+  .lesson-header { background:linear-gradient(135deg,var(--green) 0%,#40916c 100%); color:white; border-radius:var(--radius); padding:18px 22px; margin-bottom:16px; display:flex; align-items:center; gap:14px; }
+  .lesson-header .icon { font-size:38px; }
+  .lesson-header h2 { font-size:18px; font-weight:800; }
+  .lesson-header p  { font-size:12px; opacity:.85; margin-top:2px; }
+  .q-slide { display:none; }
+  .q-slide.active { display:block; }
+  .ex-card { background:white; border-radius:var(--radius); padding:22px 24px; box-shadow:var(--shadow); border:1.5px solid var(--border); margin-bottom:14px; }
+  .ex-type { display:inline-flex; align-items:center; gap:5px; background:var(--green-light); color:var(--green); font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; padding:3px 10px; border-radius:20px; margin-bottom:10px; }
+  .ex-question { font-size:16px; font-weight:700; color:var(--text); margin-bottom:14px; line-height:1.5; }
+  .ex-question b { color:var(--green); }
+  .ex-question em { color:var(--blue); font-style:normal; text-decoration:underline; }
+  .audio-box { background:var(--blue-light); border:1.5px solid #c7d2fe; border-radius:12px; padding:12px 16px; margin-bottom:14px; display:flex; align-items:center; gap:12px; }
+  .audio-play-btn { width:44px; height:44px; border-radius:50%; background:var(--blue); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; box-shadow:0 4px 12px rgba(67,97,238,.3); transition:transform .2s; }
+  .audio-play-btn:hover { transform:scale(1.08); }
+  .audio-box .audio-label { font-size:14px; font-weight:700; color:var(--blue); }
+  .audio-box .audio-sub   { font-size:11px; color:var(--muted); margin-top:2px; }
+  .pic-choices { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .pic-choice { border:3px solid var(--border); border-radius:12px; padding:16px; cursor:pointer; transition:all .2s; background:#fafafa; display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .pic-choice:hover:not([data-locked]) { border-color:var(--blue); background:var(--blue-light); }
+  .pic-choice.selected { border-color:#7c3aed; background:#ede9fe; }
+  .pic-choice.correct { border-color:#22c55e; background:#f0fdf4; }
+  .pic-choice.wrong   { border-color:var(--red); background:#fff0f0; }
+  .pic-choice .pic-label { font-weight:800; font-size:16px; color:var(--muted); }
+  .pic-choice .pic-emoji { font-size:62px; line-height:1; }
+  .pic-choice .pic-name  { font-size:12px; font-weight:600; color:var(--muted); visibility:hidden; }
+  .pic-choice.correct .pic-name, .pic-choice.wrong .pic-name { visibility:visible; }
+  .word-choices { display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
+  .word-btn { padding:10px 22px; border-radius:30px; background:var(--blue); color:white; border:none; font-family:'Nunito',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all .2s; }
+  .word-btn:hover:not(:disabled) { background:#2d4fcf; transform:translateY(-1px); }
+  .word-btn.selected { background:#7c3aed; box-shadow:0 0 0 3px rgba(124,58,237,.25); }
+  .word-btn.correct { background:#22c55e; }
+  .word-btn.wrong   { background:var(--red); }
+  .sentence-blank { font-size:20px; font-weight:700; background:var(--yellow-light); border-radius:10px; padding:14px 18px; margin-bottom:14px; line-height:1.8; }
+  .blank-slot { display:inline-block; min-width:100px; border-bottom:3px solid var(--green); text-align:center; padding:0 8px; color:var(--green); font-weight:800; margin:0 4px; }
+  .reorder-target { display:flex; gap:8px; flex-wrap:wrap; min-height:52px; align-items:center; margin-bottom:14px; }
+  .reorder-slot { width:44px; height:44px; border-radius:8px; background:white; border:2px dashed var(--border); display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; color:var(--text); }
+  .reorder-area { display:flex; gap:8px; flex-wrap:wrap; background:#f1f5f9; border-radius:10px; padding:14px 18px; margin-bottom:14px; min-height:52px; align-items:center; }
+  .letter-tile { width:44px; height:44px; border-radius:8px; background:var(--blue); color:white; border:none; font-family:'Nunito',sans-serif; font-size:18px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .15s; box-shadow:0 3px 8px rgba(67,97,238,.3); user-select:none; }
+  .letter-tile:hover:not(.used) { transform:translateY(-2px); }
+  .letter-tile.used { background:#d1d5db; color:#9ca3af; cursor:not-allowed; box-shadow:none; }
+  .pic-for-word { font-size:68px; text-align:center; margin-bottom:12px; }
+  .underline-sentence { font-size:19px; font-weight:700; background:var(--yellow-light); border-radius:10px; padding:14px 20px; display:flex; flex-wrap:wrap; gap:5px; align-items:center; }
+  .word-span { cursor:pointer; padding:3px 6px; border-radius:6px; border-bottom:3px solid transparent; transition:all .2s; display:inline-block; }
+  .word-span:hover { background:var(--green-light); }
+  .word-span.underlined { border-bottom-color:var(--green); color:var(--green); }
+  .word-span.correct    { border-bottom-color:#22c55e; background:#f0fdf4; color:#15803d; }
+  .word-span.wrong      { border-bottom-color:var(--red); background:#fff0f0; color:var(--red); text-decoration:line-through; }
+  .spell-choices { display:flex; flex-direction:column; gap:8px; }
+  .spell-option { padding:12px 18px; border-radius:10px; border:2px solid var(--border); background:white; font-family:'Nunito',sans-serif; font-size:16px; font-weight:700; cursor:pointer; text-align:left; transition:all .2s; }
+  .spell-option:hover:not(:disabled) { border-color:var(--blue); background:var(--blue-light); color:var(--blue); }
+  .spell-option.selected { border-color:#7c3aed; background:#ede9fe; color:#7c3aed; }
+  .spell-option.correct { border-color:#22c55e; background:#f0fdf4; color:#15803d; }
+  .spell-option.wrong   { border-color:var(--red); background:#fff0f0; color:var(--red); }
+  .match-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .match-col-label { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:var(--muted); margin-bottom:6px; }
+  .match-item { padding:11px 14px; border-radius:10px; border:2px solid var(--border); background:white; font-weight:700; font-size:14px; cursor:pointer; transition:all .2s; text-align:center; min-height:50px; display:flex; align-items:center; justify-content:center; }
+  .match-item:hover { border-color:var(--blue); background:var(--blue-light); }
+  .match-item.picked  { border-color:var(--blue); background:var(--blue-light); box-shadow:0 0 0 3px rgba(67,97,238,.2); }
+  .match-item.matched { pointer-events:none; font-weight:800; }
+  .match-item.wrong   { border-color:var(--red); background:#fff0f0; color:var(--red); }
+  .feedback-msg { margin-top:12px; padding:10px 16px; border-radius:10px; font-weight:700; font-size:14px; display:none; }
+  .feedback-msg.show-ok  { background:#f0fdf4; color:#15803d; display:block; }
+  .feedback-msg.show-err { background:#fff0f0; color:#b91c1c; display:block; }
+  .check-btn { margin-top:12px; padding:10px 26px; border-radius:30px; background:var(--green); color:white; border:none; font-family:'Nunito',sans-serif; font-size:14px; font-weight:800; cursor:pointer; transition:all .2s; }
+  .check-btn:hover:not(:disabled) { background:#1b4332; }
+  .check-btn:disabled { background:#9ca3af; cursor:not-allowed; }
+  .reset-btn { margin-top:10px; padding:8px 20px; border-radius:30px; border:2px solid var(--border); background:white; color:var(--muted); font-family:'Nunito',sans-serif; font-size:13px; font-weight:700; cursor:pointer; transition:all .2s; }
+  .reset-btn:hover { border-color:var(--green); color:var(--green); }
+  .answer-hint { display:none; }
+  /* ── True / False ── */
+  .tf-choices { display:flex; gap:14px; margin-top:8px; }
+  .tf-btn { width:64px; height:64px; border-radius:14px; border:3px solid var(--border); background:white; font-family:'Nunito',sans-serif; font-size:26px; font-weight:900; cursor:pointer; transition:all .2s; }
+  .tf-btn:hover:not(:disabled) { border-color:var(--blue); background:var(--blue-light); }
+  .tf-btn.selected { border-color:#7c3aed; background:#ede9fe; color:#7c3aed; }
+  .tf-btn.correct { border-color:#22c55e; background:#f0fdf4; color:#15803d; }
+  .tf-btn.wrong   { border-color:var(--red); background:#fff0f0; color:var(--red); }
+  /* ── Missing Letter ── */
+  .missing-letter-wrap { display:flex; align-items:center; justify-content:center; gap:2px; font-size:34px; font-weight:900; background:var(--yellow-light); border-radius:12px; padding:18px; margin-bottom:14px; letter-spacing:3px; }
+  .missing-letter-input { width:52px; height:52px; border:3px solid var(--green); border-radius:8px; text-align:center; font-size:28px; font-weight:900; font-family:'Nunito',sans-serif; color:var(--green); outline:none; background:white; transition:border-color .2s; }
+  .missing-letter-input:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(67,97,238,.2); }
+  .missing-letter-input:disabled { cursor:not-allowed; }
+  .pager { display:flex; align-items:center; justify-content:space-between; margin-top:16px; gap:10px; }
+  .pager-btn { padding:10px 22px; border-radius:30px; border:2px solid var(--green); background:white; color:var(--green); font-family:'Nunito',sans-serif; font-size:14px; font-weight:800; cursor:pointer; transition:all .2s; min-width:100px; }
+  .pager-btn:hover:not(:disabled), .pager-btn.primary { background:var(--green); color:white; }
+  .pager-btn:disabled { border-color:var(--border); color:var(--muted); cursor:not-allowed; background:white; }
+  .pager-info { font-size:13px; font-weight:700; color:var(--muted); white-space:nowrap; }
+  .dot-row { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:12px; }
+  .dot { width:10px; height:10px; border-radius:50%; background:var(--border); cursor:pointer; transition:background .2s; flex-shrink:0; }
+  .dot.active { background:var(--blue); }
+  .dot.done   { background:#22c55e; }
+  .dot.err    { background:var(--red); }
+  .complete-banner { background:linear-gradient(135deg,var(--green) 0%,#40916c 100%); color:white; border-radius:var(--radius); padding:28px 24px; text-align:center; margin-top:16px; display:none; }
+  .complete-banner.show { display:block; }
+  .complete-banner .big-star { font-size:52px; margin-bottom:10px; }
+  .complete-banner h3 { font-size:22px; font-weight:800; margin-bottom:6px; }
+  .complete-banner p  { font-size:14px; opacity:.9; }
+  .finish-stats { display:flex; gap:14px; justify-content:center; margin:18px 0 4px; flex-wrap:wrap; }
+  .finish-stat { display:inline-flex; flex-direction:column; align-items:center; background:rgba(255,255,255,.2); border-radius:12px; padding:14px 22px; min-width:85px; }
+  .finish-stat .num { font-size:30px; font-weight:900; line-height:1; }
+  .finish-stat .lbl { font-size:11px; opacity:.85; margin-top:4px; }
+  .finish-actions { display:flex; gap:10px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
+  .finish-panel-btn { padding:10px 22px; border-radius:30px; background:rgba(255,255,255,.2); border:2px solid rgba(255,255,255,.5); color:white; font-family:'Nunito',sans-serif; font-size:13px; font-weight:800; cursor:pointer; transition:all .2s; }
+  .finish-panel-btn:hover { background:rgba(255,255,255,.35); }
+  .review-panel { margin-top:16px; text-align:left; }
+  .review-panel h4 { font-size:13px; font-weight:800; opacity:.9; margin-bottom:8px; }
+  .review-goto-btn { display:block; width:100%; margin-bottom:6px; padding:9px 14px; border-radius:8px; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3); color:white; font-family:'Nunito',sans-serif; font-size:13px; font-weight:700; cursor:pointer; text-align:left; transition:background .15s; }
+  .review-goto-btn:hover { background:rgba(255,255,255,.3); }
+  @media(max-width:520px) { .pic-choices { grid-template-columns:1fr; } .match-grid { grid-template-columns:1fr; } .lesson { padding:12px; } }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div class="logo">🦋</div>
+  <div><h1>Vioedu Practice - 0988208927</h1><p>Vocabulary · Phonics · Grammar · Speaking</p></div>
+</div>
+<div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
+<div class="progress-text" id="progressText">0 / 0 answered</div>
+
+<div class="tabs">
+  <button class="tab active"  onclick="switchLesson(0,this)">🐵 L1 Mm</button>
+  <button class="tab"         onclick="switchLesson(1,this)">🔔 L2 School</button>
+  <button class="tab"         onclick="switchLesson(2,this)">🍜 L3 Nn</button>
+  <button class="tab"         onclick="switchLesson(3,this)">🐯 L4 Tt</button>
+  <button class="tab"         onclick="switchLesson(4,this)">🪁 L5 Phonics</button>
+  <button class="tab"         onclick="switchLesson(5,this)">🏃 L6 Actions</button>
+</div>
+
+<!-- LESSON 1 -->
+<div class="lesson active" id="lesson-0">
+  <div class="lesson-header"><div class="icon">🐵</div><div><h2>Lesson 1 — Letter Mm</h2><p>mango · monkey · mother · mouse · milk · moon · man · map</p></div></div>
+  <div class="dot-row" id="dots-0"></div>
+  <div class="q-slide active" id="L1Q1">
+    <div class="ex-card">
+      <div class="ex-type">🎧 Listen &amp; Choose</div>
+      <div class="ex-question">It is a long yellow fruit. Monkeys love it. What is it?</div>
+      <div class="audio-box"><button class="audio-play-btn" onclick="speak('It is a long yellow fruit. Monkeys love it. What is it?')">🔊</button><div><div class="audio-label">Tap to listen</div><div class="audio-sub">Then choose the answer.</div></div></div>
+      <div class="word-choices">
+        <button class="word-btn" onclick="answerWord(this,'L1Q1','mango','banana')">A. mango</button>
+        <button class="word-btn" onclick="answerWord(this,'L1Q1','banana','banana')">B. banana</button>
+      </div>
+      <div class="feedback-msg" id="fb-L1Q1"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L1Q2">
+    <div class="ex-card">
+      <div class="ex-type">🎧 Listen &amp; Choose</div>
+      <div class="ex-question">What animal climbs trees and likes bananas?</div>
+      <div class="audio-box"><button class="audio-play-btn" onclick="speak('What animal climbs trees and likes bananas?')">🔊</button><div><div class="audio-label">Tap to listen</div><div class="audio-sub">Then choose the answer.</div></div></div>
+      <div class="word-choices">
+        <button class="word-btn" onclick="answerWord(this,'L1Q2','mouse','monkey')">A. mouse</button>
+        <button class="word-btn" onclick="answerWord(this,'L1Q2','monkey','monkey')">B. monkey</button>
+      </div>
+      <div class="feedback-msg" id="fb-L1Q2"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L1Q3">
+    <div class="ex-card">
+      <div class="ex-type">🖼️ Read &amp; Choose Picture</div>
+      <div class="ex-question">Choose the correct picture: <b>Monkey</b></div>
+      <div class="pic-choices">
+        <div class="pic-choice" onclick="answerPic(this,'L1Q3','A','A')"><div class="pic-label">A</div><div class="pic-emoji">🐒</div><div class="pic-name">monkey</div></div>
+        <div class="pic-choice" onclick="answerPic(this,'L1Q3','B','A')"><div class="pic-label">B</div><div class="pic-emoji">🐭</div><div class="pic-name">mouse</div></div>
+      </div>
+      <div class="feedback-msg" id="fb-L1Q3"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L1Q4">
+    <div class="ex-card">
+      <div class="ex-type">🖼️ Read &amp; Choose Picture</div>
+      <div class="ex-question">Choose the correct picture: <b>Mango</b></div>
+      <div class="pic-choices">
+        <div class="pic-choice" onclick="answerPic(this,'L1Q4','A','B')"><div class="pic-label">A</div><div class="pic-emoji">🍌</div><div class="pic-name">banana</div></div>
+        <div class="pic-choice" onclick="answerPic(this,'L1Q4','B','B')"><div class="pic-label">B</div><div class="pic-emoji">🥭</div><div class="pic-name">mango</div></div>
+      </div>
+      <div class="feedback-msg" id="fb-L1Q4"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L1Q5">
+    <div class="ex-card">
+      <div class="ex-type">🔤 Reorder Letters</div>
+      <div class="ex-question"><em>Reorder letters</em> to spell the word: <b>a m n g o</b></div>
+      <div class="pic-for-word">🥭</div>
+      <div class="reorder-target" id="tgt-L1Q5"></div>
+      <div class="reorder-area" id="tiles-L1Q5"></div>
+      <div><button class="reset-btn" onclick="resetReorder('L1Q5')">↺ Reset</button></div>
+      <div class="feedback-msg" id="fb-L1Q5"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L1Q6">
+    <div class="ex-card">
+      <div class="ex-type">🔤 Reorder Letters</div>
+      <div class="ex-question"><em>Reorder letters</em>: <b>k e y n o m</b></div>
+      <div class="pic-for-word">🐒</div>
+      <div class="reorder-target" id="tgt-L1Q6"></div>
+      <div class="reorder-area" id="tiles-L1Q6"></div>
+      <div><button class="reset-btn" onclick="resetReorder('L1Q6')">↺ Reset</button></div>
+      <div class="feedback-msg" id="fb-L1Q6"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L1Q7">
+    <div class="ex-card">
+      <div class="ex-type">✏️ Underline Words</div>
+      <div class="ex-question"><em>Click</em> all words beginning with <b>"m"</b>.</div>
+      <div class="underline-sentence" id="sent-L1Q7">
+        <span class="word-span" onclick="togU(this)">The</span><span class="word-span" onclick="togU(this)">mother</span><span class="word-span" onclick="togU(this)">gives</span><span class="word-span" onclick="togU(this)">milk</span><span class="word-span" onclick="togU(this)">to</span><span class="word-span" onclick="togU(this)">the</span><span class="word-span" onclick="togU(this)">monkey</span><span class="word-span" onclick="togU(this)">and</span><span class="word-span" onclick="togU(this)">the</span><span class="word-span" onclick="togU(this)">mouse.</span><span class="word-span" onclick="togU(this)">The</span><span class="word-span" onclick="togU(this)">man</span><span class="word-span" onclick="togU(this)">looks</span><span class="word-span" onclick="togU(this)">at</span><span class="word-span" onclick="togU(this)">the</span><span class="word-span" onclick="togU(this)">moon</span><span class="word-span" onclick="togU(this)">and</span><span class="word-span" onclick="togU(this)">the</span><span class="word-span" onclick="togU(this)">map.</span>
+      </div>
+      <p class="answer-hint">Answer: mother, milk, monkey, mouse, man, moon, map</p>
+      <button class="check-btn" onclick="checkUnderline('L1Q7',['mother','milk','monkey','mouse.','man','moon','map.'])">Check ✓</button>
+      <div class="feedback-msg" id="fb-L1Q7"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L1Q8">
+    <div class="ex-card">
+      <div class="ex-type">🔍 Find the Mistake</div>
+      <div class="ex-question"><em>Click</em> the misspelled word.</div>
+      <div class="pic-for-word" style="font-size:52px;">🐒</div>
+      <div class="underline-sentence" id="sent-L1Q8">
+        <span class="word-span" onclick="togU(this)">I</span><span class="word-span" onclick="togU(this)">see</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">mounkey</span><span class="word-span" onclick="togU(this)">eating</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">mango.</span>
+      </div>
+      <p class="answer-hint">Correct spelling: monkey</p>
+      <button class="check-btn" onclick="checkUnderline('L1Q8',['mounkey'])">Check ✓</button>
+      <div class="feedback-msg" id="fb-L1Q8"></div>
+    </div>
+  </div>
+  <div class="pager" id="pager-0"><button class="pager-btn" id="prev-0" onclick="changePage(0,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-0">1 / 8</span><button class="pager-btn primary" id="next-0" onclick="changePage(0,1)">Next →</button></div>
+</div>
+
+<!-- LESSON 2 -->
+<div class="lesson" id="lesson-1">
+  <div class="lesson-header"><div class="icon">🔔</div><div><h2>Lesson 2 — School Objects</h2><p>bell · pen · pencil · red · book · bag · ruler · blue</p></div></div>
+  <div class="dot-row" id="dots-1"></div>
+  <div class="q-slide active" id="L2Q1">
+    <div class="ex-card">
+      <div class="ex-type">🎧 Listen &amp; Choose</div>
+      <div class="ex-question">What rings at school?</div>
+      <div class="audio-box"><button class="audio-play-btn" onclick="speak('What rings at school?')">🔊</button><div><div class="audio-label">Tap to listen</div><div class="audio-sub">Then choose.</div></div></div>
+      <div class="word-choices">
+        <button class="word-btn" onclick="answerWord(this,'L2Q1','bell','bell')">A. bell</button>
+        <button class="word-btn" onclick="answerWord(this,'L2Q1','book','bell')">B. book</button>
+      </div>
+      <div class="feedback-msg" id="fb-L2Q1"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L2Q2">
+    <div class="ex-card">
+      <div class="ex-type">🎧 Listen &amp; Choose</div>
+      <div class="ex-question">What do I write with? It has lead inside.</div>
+      <div class="audio-box"><button class="audio-play-btn" onclick="speak('What do I write with? It has lead inside.')">🔊</button><div><div class="audio-label">Tap to listen</div><div class="audio-sub">Then choose.</div></div></div>
+      <div class="word-choices">
+        <button class="word-btn" onclick="answerWord(this,'L2Q2','pencil','pencil')">A. pencil</button>
+        <button class="word-btn" onclick="answerWord(this,'L2Q2','bag','pencil')">B. bag</button>
+      </div>
+      <div class="feedback-msg" id="fb-L2Q2"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L2Q3">
+    <div class="ex-card">
+      <div class="ex-type">🖼️ Read &amp; Choose Picture</div>
+      <div class="ex-question">Choose the correct picture: <b>This is a pen.</b></div>
+      <div class="pic-choices">
+        <div class="pic-choice" onclick="answerPic(this,'L2Q3','A','B')"><div class="pic-label">A</div><div class="pic-emoji">✏️</div><div class="pic-name">pencil</div></div>
+        <div class="pic-choice" onclick="answerPic(this,'L2Q3','B','B')"><div class="pic-label">B</div><div class="pic-emoji">🖋️</div><div class="pic-name">pen</div></div>
+      </div>
+      <div class="feedback-msg" id="fb-L2Q3"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L2Q4">
+    <div class="ex-card">
+      <div class="ex-type">🔤 Reorder Letters</div>
+      <div class="ex-question"><em>Reorder letters</em>: <b>l e b l</b></div>
+      <div class="pic-for-word">🔔</div>
+      <div class="reorder-target" id="tgt-L2Q4"></div><div class="reorder-area" id="tiles-L2Q4"></div>
+      <div><button class="reset-btn" onclick="resetReorder('L2Q4')">↺ Reset</button></div>
+      <div class="feedback-msg" id="fb-L2Q4"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L2Q5">
+    <div class="ex-card">
+      <div class="ex-type">🔤 Reorder Letters</div>
+      <div class="ex-question"><em>Reorder letters</em>: <b>l i c n e p</b></div>
+      <div class="pic-for-word">✏️</div>
+      <div class="reorder-target" id="tgt-L2Q5"></div><div class="reorder-area" id="tiles-L2Q5"></div>
+      <div><button class="reset-btn" onclick="resetReorder('L2Q5')">↺ Reset</button></div>
+      <div class="feedback-msg" id="fb-L2Q5"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L2Q6">
+    <div class="ex-card">
+      <div class="ex-type">🔤 Reorder Letters</div>
+      <div class="ex-question"><em>Reorder letters</em>: <b>g a b</b></div>
+      <div class="pic-for-word">🎒</div>
+      <div class="reorder-target" id="tgt-L2Q6"></div><div class="reorder-area" id="tiles-L2Q6"></div>
+      <div><button class="reset-btn" onclick="resetReorder('L2Q6')">↺ Reset</button></div>
+      <div class="feedback-msg" id="fb-L2Q6"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L2Q7">
+    <div class="ex-card">
+      <div class="ex-type">🔡 Correct Spelling</div>
+      <div class="ex-question">Choose the correct spelling.</div>
+      <div style="font-size:68px;text-align:center;margin-bottom:12px;">🔔</div>
+      <div class="spell-choices">
+        <button class="spell-option" onclick="answerSpell(this,'L2Q7','bell','bell')">A. bell</button>
+        <button class="spell-option" onclick="answerSpell(this,'L2Q7','bel','bell')">B. bel</button>
+        <button class="spell-option" onclick="answerSpell(this,'L2Q7','ball','bell')">C. ball</button>
+      </div>
+      <div class="feedback-msg" id="fb-L2Q7"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L2Q8">
+    <div class="ex-card">
+      <div class="ex-type">🔡 Correct Spelling</div>
+      <div class="ex-question">Choose the correct spelling.</div>
+      <div style="font-size:68px;text-align:center;margin-bottom:12px;">✏️</div>
+      <div class="spell-choices">
+        <button class="spell-option" onclick="answerSpell(this,'L2Q8','pencel','pencil')">A. pencel</button>
+        <button class="spell-option" onclick="answerSpell(this,'L2Q8','pencil','pencil')">B. pencil</button>
+        <button class="spell-option" onclick="answerSpell(this,'L2Q8','pensil','pencil')">C. pensil</button>
+      </div>
+      <div class="feedback-msg" id="fb-L2Q8"></div>
+    </div>
+  </div>
+  <!-- L2Q9: Look & Match — columns rebuilt by JS with randomized order + pair colors -->
+  <div class="q-slide" id="L2Q9">
+    <div class="ex-card">
+      <div class="ex-type">🔗 Look and Match</div>
+      <div class="ex-question">Match each picture to the correct phrase.</div>
+      <div class="match-grid">
+        <div>
+          <div class="match-col-label">Pictures</div>
+          <div style="display:flex;flex-direction:column;gap:8px;" id="match-left-L2Q9"></div>
+        </div>
+        <div>
+          <div class="match-col-label">Phrases</div>
+          <div style="display:flex;flex-direction:column;gap:8px;" id="match-right-L2Q9"></div>
+        </div>
+      </div>
+      <button class="check-btn" onclick="checkMatch('L2Q9')">Check Matches ✓</button>
+      <div class="feedback-msg" id="fb-L2Q9"></div>
+    </div>
+  </div>
+  <div class="pager" id="pager-1"><button class="pager-btn" id="prev-1" onclick="changePage(1,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-1">1 / 9</span><button class="pager-btn primary" id="next-1" onclick="changePage(1,1)">Next →</button></div>
+</div>
+
+<!-- LESSON 3 -->
+<div class="lesson" id="lesson-2">
+  <div class="lesson-header"><div class="icon">🍜</div><div><h2>Lesson 3 — Letter Nn &amp; Food</h2><p>bananas · noodles · nuts · nose · net · "She's having noodles."</p></div></div>
+  <div class="dot-row" id="dots-2"></div>
+  <div class="q-slide active" id="L3Q1">
+    <div class="ex-card">
+      <div class="ex-type">🎧 Listen &amp; Choose</div>
+      <div class="ex-question">What is she having?</div>
+      <div class="audio-box"><button class="audio-play-btn" onclick="speak('She is having noodles.')">🔊</button><div><div class="audio-label">Tap to listen</div><div class="audio-sub">Then choose.</div></div></div>
+      <div class="word-choices">
+        <button class="word-btn" onclick="answerWord(this,'L3Q1','noodles','noodles')">A. She's having noodles.</button>
+        <button class="word-btn" onclick="answerWord(this,'L3Q1','nuts','noodles')">B. She's having nuts.</button>
+      </div>
+      <div class="feedback-msg" id="fb-L3Q1"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L3Q2">
+    <div class="ex-card">
+      <div class="ex-type">🖼️ Read &amp; Choose Picture</div>
+      <div class="ex-question">Choose the correct picture: <b>She's having noodles.</b></div>
+      <div class="pic-choices">
+        <div class="pic-choice" onclick="answerPic(this,'L3Q2','A','A')"><div class="pic-label">A</div><div class="pic-emoji">🍜</div><div class="pic-name">noodles</div></div>
+        <div class="pic-choice" onclick="answerPic(this,'L3Q2','B','A')"><div class="pic-label">B</div><div class="pic-emoji">🍌</div><div class="pic-name">bananas</div></div>
+      </div>
+      <div class="feedback-msg" id="fb-L3Q2"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L3Q3">
+    <div class="ex-card">
+      <div class="ex-type">📝 Complete the Sentence</div>
+      <div class="ex-question">Choose the correct word to complete the sentence.</div>
+      <div class="pic-for-word">🍜</div>
+      <div class="sentence-blank">She's having <span class="blank-slot" id="blank-L3Q3">___</span>.</div>
+      <div class="word-choices" id="wc-L3Q3">
+        <button class="word-btn" onclick="answerFill(this,'L3Q3','noodles','noodles')">noodles</button>
+        <button class="word-btn" onclick="answerFill(this,'L3Q3','running','noodles')">running</button>
+        <button class="word-btn" onclick="answerFill(this,'L3Q3','monkey','noodles')">monkey</button>
+      </div>
+      <div class="feedback-msg" id="fb-L3Q3"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L3Q4">
+    <div class="ex-card">
+      <div class="ex-type">🔤 Reorder Letters</div>
+      <div class="ex-question"><em>Reorder letters</em>: <b>a n a b a n s</b></div>
+      <div class="pic-for-word">🍌🍌🍌</div>
+      <div class="reorder-target" id="tgt-L3Q4"></div><div class="reorder-area" id="tiles-L3Q4"></div>
+      <div><button class="reset-btn" onclick="resetReorder('L3Q4')">↺ Reset</button></div>
+      <div class="feedback-msg" id="fb-L3Q4"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L3Q5">
+    <div class="ex-card">
+      <div class="ex-type">🔤 Reorder Letters</div>
+      <div class="ex-question"><em>Reorder letters</em>: <b>t u n s</b></div>
+      <div class="pic-for-word">🥜🥜🥜</div>
+      <div class="reorder-target" id="tgt-L3Q5"></div><div class="reorder-area" id="tiles-L3Q5"></div>
+      <div><button class="reset-btn" onclick="resetReorder('L3Q5')">↺ Reset</button></div>
+      <div class="feedback-msg" id="fb-L3Q5"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L3Q6">
+    <div class="ex-card">
+      <div class="ex-type">✏️ Underline Words</div>
+      <div class="ex-question"><em>Click</em> all words beginning with <b>"n"</b>.</div>
+      <div class="underline-sentence" id="sent-L3Q6">
+        <span class="word-span" onclick="togU(this)">She</span><span class="word-span" onclick="togU(this)">has</span><span class="word-span" onclick="togU(this)">nine</span><span class="word-span" onclick="togU(this)">bananas</span><span class="word-span" onclick="togU(this)">and</span><span class="word-span" onclick="togU(this)">noodles.</span><span class="word-span" onclick="togU(this)">The</span><span class="word-span" onclick="togU(this)">name</span><span class="word-span" onclick="togU(this)">on</span><span class="word-span" onclick="togU(this)">the</span><span class="word-span" onclick="togU(this)">net</span><span class="word-span" onclick="togU(this)">is</span><span class="word-span" onclick="togU(this)">new.</span>
+      </div>
+      <p class="answer-hint">Answer: nine, noodles, name, net, new</p>
+      <button class="check-btn" onclick="checkUnderline('L3Q6',['nine','noodles.','name','net','new.'])">Check ✓</button>
+      <div class="feedback-msg" id="fb-L3Q6"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L3Q7">
+    <div class="ex-card">
+      <div class="ex-type">🔍 Find the Mistake</div>
+      <div class="ex-question"><em>Click</em> the misspelled word.</div>
+      <div class="pic-for-word" style="font-size:52px;">🍜</div>
+      <div class="underline-sentence" id="sent-L3Q7">
+        <span class="word-span" onclick="togU(this)">She's</span><span class="word-span" onclick="togU(this)">having</span><span class="word-span" onclick="togU(this)">noodless.</span>
+      </div>
+      <p class="answer-hint">Correct spelling: noodles</p>
+      <button class="check-btn" onclick="checkUnderline('L3Q7',['noodless.'])">Check ✓</button>
+      <div class="feedback-msg" id="fb-L3Q7"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L3Q8">
+    <div class="ex-card">
+      <div class="ex-type">🔡 Correct Spelling</div>
+      <div class="ex-question">Choose the correct spelling.</div>
+      <div style="font-size:68px;text-align:center;margin-bottom:12px;">🍌</div>
+      <div class="spell-choices">
+        <button class="spell-option" onclick="answerSpell(this,'L3Q8','bananas','bananas')">A. bananas</button>
+        <button class="spell-option" onclick="answerSpell(this,'L3Q8','banannas','bananas')">B. banannas</button>
+        <button class="spell-option" onclick="answerSpell(this,'L3Q8','banas','bananas')">C. banas</button>
+      </div>
+      <div class="feedback-msg" id="fb-L3Q8"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L3Q9">
+    <div class="ex-card">
+      <div class="ex-type">✅ True or False</div>
+      <div class="ex-question">Look at the picture and the word. Is it correct? Click <b>T</b> (True) or <b>F</b> (False).</div>
+      <div class="pic-for-word">🍜</div>
+      <div style="text-align:center;font-size:26px;font-weight:900;margin-bottom:14px;">noodles</div>
+      <div class="tf-choices">
+        <button class="tf-btn" data-val="T" onclick="answerTF(this,'L3Q9','T','T')">T</button>
+        <button class="tf-btn" data-val="F" onclick="answerTF(this,'L3Q9','F','T')">F</button>
+      </div>
+      <div class="feedback-msg" id="fb-L3Q9"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L3Q10">
+    <div class="ex-card">
+      <div class="ex-type">✏️ Missing Letter</div>
+      <div class="ex-question">Write <b>ONE</b> letter to complete the word.</div>
+      <div class="pic-for-word">🥜</div>
+      <div class="missing-letter-wrap">n<input class="missing-letter-input" id="ml-inp-L3Q10" maxlength="1" placeholder="_" autocomplete="off">ts</div>
+      <button class="check-btn" onclick="checkMissingLetter('L3Q10','u')">Check ✓</button>
+      <div class="feedback-msg" id="fb-L3Q10"></div>
+    </div>
+  </div>
+  <div class="pager" id="pager-2"><button class="pager-btn" id="prev-2" onclick="changePage(2,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-2">1 / 10</span><button class="pager-btn primary" id="next-2" onclick="changePage(2,1)">Next →</button></div>
+</div>
+
+<!-- LESSON 4 -->
+<div class="lesson" id="lesson-3">
+  <div class="lesson-header"><div class="icon">🐯</div><div><h2>Lesson 4 — Letter Tt &amp; Animals</h2><p>teddy bear · tiger · top · turtle · table · toy · tree</p></div></div>
+  <div class="dot-row" id="dots-3"></div>
+  <div class="q-slide active" id="L4Q1">
+    <div class="ex-card">
+      <div class="ex-type">🎧 Listen &amp; Choose</div>
+      <div class="ex-question">This animal is big. It says <b>ROAR!</b> 🐯 What is it?</div>
+      <div class="audio-box"><button class="audio-play-btn" onclick="speak('This animal is big. It says ROAR! What is it?')">🔊</button><div><div class="audio-label">Tap to listen</div><div class="audio-sub">Then choose.</div></div></div>
+      <div class="word-choices">
+        <button class="word-btn" onclick="answerWord(this,'L4Q1','tiger','tiger')">A. tiger</button>
+        <button class="word-btn" onclick="answerWord(this,'L4Q1','turtle','tiger')">B. turtle</button>
+      </div>
+      <div class="feedback-msg" id="fb-L4Q1"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L4Q2">
+    <div class="ex-card">
+      <div class="ex-type">🖼️ Read &amp; Choose Picture</div>
+      <div class="ex-question">Choose the correct picture: <b>I can see a tiger.</b></div>
+      <div class="pic-choices">
+        <div class="pic-choice" onclick="answerPic(this,'L4Q2','A','A')"><div class="pic-label">A</div><div class="pic-emoji">🐅</div><div class="pic-name">tiger</div></div>
+        <div class="pic-choice" onclick="answerPic(this,'L4Q2','B','A')"><div class="pic-label">B</div><div class="pic-emoji">🧸</div><div class="pic-name">teddy bear</div></div>
+      </div>
+      <div class="feedback-msg" id="fb-L4Q2"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L4Q3">
+    <div class="ex-card">
+      <div class="ex-type">📝 Complete the Sentence</div>
+      <div class="ex-question">Choose the correct word.</div>
+      <div class="pic-for-word">🐯</div>
+      <div class="sentence-blank">I can see a <span class="blank-slot" id="blank-L4Q3">___</span>.</div>
+      <div class="word-choices" id="wc-L4Q3">
+        <button class="word-btn" onclick="answerFill(this,'L4Q3','tiger','tiger')">tiger</button>
+        <button class="word-btn" onclick="answerFill(this,'L4Q3','turtle','tiger')">turtle</button>
+        <button class="word-btn" onclick="answerFill(this,'L4Q3','teddy bear','tiger')">teddy bear</button>
+      </div>
+      <div class="feedback-msg" id="fb-L4Q3"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L4Q4">
+    <div class="ex-card">
+      <div class="ex-type">🔤 Reorder Letters</div>
+      <div class="ex-question"><em>Reorder letters</em>: <b>g e r t i</b></div>
+      <div class="pic-for-word">🐯</div>
+      <div class="reorder-target" id="tgt-L4Q4"></div><div class="reorder-area" id="tiles-L4Q4"></div>
+      <div><button class="reset-btn" onclick="resetReorder('L4Q4')">↺ Reset</button></div>
+      <div class="feedback-msg" id="fb-L4Q4"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L4Q5">
+    <div class="ex-card">
+      <div class="ex-type">🔤 Reorder Letters</div>
+      <div class="ex-question"><em>Reorder letters</em>: <b>e t l u r t</b></div>
+      <div class="pic-for-word">🐢</div>
+      <div class="reorder-target" id="tgt-L4Q5"></div><div class="reorder-area" id="tiles-L4Q5"></div>
+      <div><button class="reset-btn" onclick="resetReorder('L4Q5')">↺ Reset</button></div>
+      <div class="feedback-msg" id="fb-L4Q5"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L4Q6">
+    <div class="ex-card">
+      <div class="ex-type">✏️ Underline Words</div>
+      <div class="ex-question"><em>Click</em> all words beginning with <b>"t"</b>.</div>
+      <div class="underline-sentence" id="sent-L4Q6">
+        <span class="word-span" onclick="togU(this)">I</span><span class="word-span" onclick="togU(this)">see</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">tiger</span><span class="word-span" onclick="togU(this)">and</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">turtle</span><span class="word-span" onclick="togU(this)">on</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">table.</span><span class="word-span" onclick="togU(this)">My</span><span class="word-span" onclick="togU(this)">toy</span><span class="word-span" onclick="togU(this)">top</span><span class="word-span" onclick="togU(this)">is</span><span class="word-span" onclick="togU(this)">under</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">tree.</span>
+      </div>
+      <p class="answer-hint">Answer: tiger, turtle, table, toy, top, tree</p>
+      <button class="check-btn" onclick="checkUnderline('L4Q6',['tiger','turtle','table.','toy','top','tree.'])">Check ✓</button>
+      <div class="feedback-msg" id="fb-L4Q6"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L4Q7">
+    <div class="ex-card">
+      <div class="ex-type">🔍 Find the Mistake</div>
+      <div class="ex-question"><em>Click</em> the misspelled word.</div>
+      <div class="pic-for-word" style="font-size:52px;">🐯</div>
+      <div class="underline-sentence" id="sent-L4Q7">
+        <span class="word-span" onclick="togU(this)">I</span><span class="word-span" onclick="togU(this)">can</span><span class="word-span" onclick="togU(this)">see</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">tigger.</span>
+      </div>
+      <p class="answer-hint">Correct spelling: tiger</p>
+      <button class="check-btn" onclick="checkUnderline('L4Q7',['tigger.'])">Check ✓</button>
+      <div class="feedback-msg" id="fb-L4Q7"></div>
+    </div>
+  </div>
+  <!-- L4Q8: Look & Match — columns rebuilt by JS with randomized order + pair colors -->
+  <div class="q-slide" id="L4Q8">
+    <div class="ex-card">
+      <div class="ex-type">🔗 Look and Match</div>
+      <div class="ex-question">Match each picture to the correct word.</div>
+      <div class="match-grid">
+        <div>
+          <div class="match-col-label">Pictures</div>
+          <div style="display:flex;flex-direction:column;gap:8px;" id="match-left-L4Q8"></div>
+        </div>
+        <div>
+          <div class="match-col-label">Words</div>
+          <div style="display:flex;flex-direction:column;gap:8px;" id="match-right-L4Q8"></div>
+        </div>
+      </div>
+      <button class="check-btn" onclick="checkMatch('L4Q8')">Check Matches ✓</button>
+      <div class="feedback-msg" id="fb-L4Q8"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L4Q9">
+    <div class="ex-card">
+      <div class="ex-type">✅ True or False</div>
+      <div class="ex-question">Look at the picture and the word. Is it correct? Click <b>T</b> (True) or <b>F</b> (False).</div>
+      <div class="pic-for-word">🧸</div>
+      <div style="text-align:center;font-size:26px;font-weight:900;margin-bottom:14px;">monkey</div>
+      <div class="tf-choices">
+        <button class="tf-btn" data-val="T" onclick="answerTF(this,'L4Q9','T','F')">T</button>
+        <button class="tf-btn" data-val="F" onclick="answerTF(this,'L4Q9','F','F')">F</button>
+      </div>
+      <p class="answer-hint">It is a teddy bear, not a monkey.</p>
+      <div class="feedback-msg" id="fb-L4Q9"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L4Q10">
+    <div class="ex-card">
+      <div class="ex-type">✏️ Missing Letter</div>
+      <div class="ex-question">Write <b>ONE</b> letter to complete the word.</div>
+      <div class="pic-for-word">🪀</div>
+      <div class="missing-letter-wrap">t<input class="missing-letter-input" id="ml-inp-L4Q10" maxlength="1" placeholder="_" autocomplete="off">p</div>
+      <button class="check-btn" onclick="checkMissingLetter('L4Q10','o')">Check ✓</button>
+      <div class="feedback-msg" id="fb-L4Q10"></div>
+    </div>
+  </div>
+  <div class="pager" id="pager-3"><button class="pager-btn" id="prev-3" onclick="changePage(3,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-3">1 / 10</span><button class="pager-btn primary" id="next-3" onclick="changePage(3,1)">Next →</button></div>
+</div>
+
+<!-- LESSON 5 -->
+<div class="lesson" id="lesson-4">
+  <div class="lesson-header"><div class="icon">🪁</div><div><h2>Lesson 5 — Phonics Gg Hh Ii / Jj Kk Ll Mm</h2><p>goat · girl · hat · juice · jam · kite · king · leaf · lion · moon · monkey</p></div></div>
+  <div class="dot-row" id="dots-4"></div>
+  <div class="q-slide active" id="L5Q1">
+    <div class="ex-card">
+      <div class="ex-type">🎧 Listen &amp; Choose</div>
+      <div class="ex-question">What animal says "baa"?</div>
+      <div class="audio-box"><button class="audio-play-btn" onclick="speak('What animal says baa?')">🔊</button><div><div class="audio-label">Tap to listen</div><div class="audio-sub">Then choose.</div></div></div>
+      <div class="word-choices">
+        <button class="word-btn" onclick="answerWord(this,'L5Q1','goat','goat')">A. goat</button>
+        <button class="word-btn" onclick="answerWord(this,'L5Q1','lion','goat')">B. lion</button>
+      </div>
+      <div class="feedback-msg" id="fb-L5Q1"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L5Q2">
+    <div class="ex-card">
+      <div class="ex-type">🖼️ Read &amp; Choose Picture</div>
+      <div class="ex-question">Choose the correct picture: <b>This is a goat.</b></div>
+      <div class="pic-choices">
+        <div class="pic-choice" onclick="answerPic(this,'L5Q2','A','A')"><div class="pic-label">A</div><div class="pic-emoji">🐐</div><div class="pic-name">goat</div></div>
+        <div class="pic-choice" onclick="answerPic(this,'L5Q2','B','A')"><div class="pic-label">B</div><div class="pic-emoji">👧</div><div class="pic-name">girl</div></div>
+      </div>
+      <div class="feedback-msg" id="fb-L5Q2"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L5Q3">
+    <div class="ex-card">
+      <div class="ex-type">🔤 Reorder Letters</div>
+      <div class="ex-question"><em>Reorder letters</em>: <b>t g o a</b></div>
+      <div class="pic-for-word">🐐</div>
+      <div class="reorder-target" id="tgt-L5Q3"></div><div class="reorder-area" id="tiles-L5Q3"></div>
+      <div><button class="reset-btn" onclick="resetReorder('L5Q3')">↺ Reset</button></div>
+      <div class="feedback-msg" id="fb-L5Q3"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L5Q4">
+    <div class="ex-card">
+      <div class="ex-type">🔤 Reorder Letters</div>
+      <div class="ex-question"><em>Reorder letters</em>: <b>e k t i</b></div>
+      <div class="pic-for-word">🪁</div>
+      <div class="reorder-target" id="tgt-L5Q4"></div><div class="reorder-area" id="tiles-L5Q4"></div>
+      <div><button class="reset-btn" onclick="resetReorder('L5Q4')">↺ Reset</button></div>
+      <div class="feedback-msg" id="fb-L5Q4"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L5Q5">
+    <div class="ex-card">
+      <div class="ex-type">✏️ Underline Words</div>
+      <div class="ex-question"><em>Click</em> words beginning with <b>G, H, J, K, L</b> or <b>M</b>.</div>
+      <div class="underline-sentence" id="sent-L5Q5">
+        <span class="word-span" onclick="togU(this)">The</span><span class="word-span" onclick="togU(this)">girl</span><span class="word-span" onclick="togU(this)">has</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">hat</span><span class="word-span" onclick="togU(this)">and</span><span class="word-span" onclick="togU(this)">juice.</span><span class="word-span" onclick="togU(this)">The</span><span class="word-span" onclick="togU(this)">king</span><span class="word-span" onclick="togU(this)">flies</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">kite</span><span class="word-span" onclick="togU(this)">near</span><span class="word-span" onclick="togU(this)">the</span><span class="word-span" onclick="togU(this)">lion</span><span class="word-span" onclick="togU(this)">and</span><span class="word-span" onclick="togU(this)">the</span><span class="word-span" onclick="togU(this)">moon.</span>
+      </div>
+      <p class="answer-hint">Answer: girl, has, hat, juice, king, kite, lion, moon</p>
+      <button class="check-btn" onclick="checkUnderline('L5Q5',['girl','has','hat','juice.','king','kite','lion','moon.'])">Check ✓</button>
+      <div class="feedback-msg" id="fb-L5Q5"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L5Q6">
+    <div class="ex-card">
+      <div class="ex-type">🔍 Find the Mistake</div>
+      <div class="ex-question"><em>Click</em> the misspelled word.</div>
+      <div class="pic-for-word" style="font-size:52px;">🐐</div>
+      <div class="underline-sentence" id="sent-L5Q6">
+        <span class="word-span" onclick="togU(this)">The</span><span class="word-span" onclick="togU(this)">gote</span><span class="word-span" onclick="togU(this)">eats</span><span class="word-span" onclick="togU(this)">grass.</span>
+      </div>
+      <p class="answer-hint">Correct spelling: goat</p>
+      <button class="check-btn" onclick="checkUnderline('L5Q6',['gote'])">Check ✓</button>
+      <div class="feedback-msg" id="fb-L5Q6"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L5Q7">
+    <div class="ex-card">
+      <div class="ex-type">🔡 Correct Spelling</div>
+      <div class="ex-question">Choose the correct spelling.</div>
+      <div style="font-size:68px;text-align:center;margin-bottom:12px;">🐐</div>
+      <div class="spell-choices">
+        <button class="spell-option" onclick="answerSpell(this,'L5Q7','goat','goat')">A. goat</button>
+        <button class="spell-option" onclick="answerSpell(this,'L5Q7','goet','goat')">B. goet</button>
+        <button class="spell-option" onclick="answerSpell(this,'L5Q7','gote','goat')">C. gote</button>
+      </div>
+      <div class="feedback-msg" id="fb-L5Q7"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L5Q8">
+    <div class="ex-card">
+      <div class="ex-type">🔡 Correct Spelling</div>
+      <div class="ex-question">Choose the correct spelling.</div>
+      <div style="font-size:68px;text-align:center;margin-bottom:12px;">🪁</div>
+      <div class="spell-choices">
+        <button class="spell-option" onclick="answerSpell(this,'L5Q8','kite','kite')">A. kite</button>
+        <button class="spell-option" onclick="answerSpell(this,'L5Q8','kyte','kite')">B. kyte</button>
+        <button class="spell-option" onclick="answerSpell(this,'L5Q8','kitte','kite')">C. kitte</button>
+      </div>
+      <div class="feedback-msg" id="fb-L5Q8"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L5Q9">
+    <div class="ex-card">
+      <div class="ex-type">✅ True or False</div>
+      <div class="ex-question">Look at the picture and the word. Is it correct? Click <b>T</b> (True) or <b>F</b> (False).</div>
+      <div class="pic-for-word">🐐</div>
+      <div style="text-align:center;font-size:26px;font-weight:900;margin-bottom:14px;">goat</div>
+      <div class="tf-choices">
+        <button class="tf-btn" data-val="T" onclick="answerTF(this,'L5Q9','T','T')">T</button>
+        <button class="tf-btn" data-val="F" onclick="answerTF(this,'L5Q9','F','T')">F</button>
+      </div>
+      <div class="feedback-msg" id="fb-L5Q9"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L5Q10">
+    <div class="ex-card">
+      <div class="ex-type">✏️ Missing Letter</div>
+      <div class="ex-question">Write <b>ONE</b> letter to complete the word.</div>
+      <div class="pic-for-word">🧢</div>
+      <div class="missing-letter-wrap">h<input class="missing-letter-input" id="ml-inp-L5Q10" maxlength="1" placeholder="_" autocomplete="off">t</div>
+      <button class="check-btn" onclick="checkMissingLetter('L5Q10','a')">Check ✓</button>
+      <div class="feedback-msg" id="fb-L5Q10"></div>
+    </div>
+  </div>
+  <div class="pager" id="pager-4"><button class="pager-btn" id="prev-4" onclick="changePage(4,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-4">1 / 10</span><button class="pager-btn primary" id="next-4" onclick="changePage(4,1)">Next →</button></div>
+</div>
+
+<!-- LESSON 6 -->
+<div class="lesson" id="lesson-5">
+  <div class="lesson-header"><div class="icon">🏃</div><div><h2>Lesson 6 — Actions &amp; Letter Ll</h2><p>lake · leaf · lemons · lunchbox · "She's/He's running." · "Look at the lemons."</p></div></div>
+  <div class="dot-row" id="dots-5"></div>
+  <div class="q-slide active" id="L6Q1">
+    <div class="ex-card">
+      <div class="ex-type">🎧 Listen &amp; Choose</div>
+      <div class="ex-question">What is she doing?</div>
+      <div class="audio-box"><button class="audio-play-btn" onclick="speak('She is running.')">🔊</button><div><div class="audio-label">Tap to listen</div><div class="audio-sub">Then choose.</div></div></div>
+      <div class="word-choices">
+        <button class="word-btn" onclick="answerWord(this,'L6Q1','she','she')">A. She's running.</button>
+        <button class="word-btn" onclick="answerWord(this,'L6Q1','he','she')">B. He's running.</button>
+      </div>
+      <div class="feedback-msg" id="fb-L6Q1"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L6Q2">
+    <div class="ex-card">
+      <div class="ex-type">🖼️ Read &amp; Choose Picture</div>
+      <div class="ex-question">Choose the correct picture: <b>She's running.</b></div>
+      <div class="pic-choices">
+        <div class="pic-choice" onclick="answerPic(this,'L6Q2','A','A')"><div class="pic-label">A</div><div class="pic-emoji">🏃‍♀️</div><div class="pic-name">she's running</div></div>
+        <div class="pic-choice" onclick="answerPic(this,'L6Q2','B','A')"><div class="pic-label">B</div><div class="pic-emoji">🏃‍♂️</div><div class="pic-name">he's running</div></div>
+      </div>
+      <div class="feedback-msg" id="fb-L6Q2"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L6Q3">
+    <div class="ex-card">
+      <div class="ex-type">📝 Complete the Sentence</div>
+      <div class="ex-question">Choose the correct word.</div>
+      <div class="pic-for-word">🏃‍♀️</div>
+      <div class="sentence-blank">She's <span class="blank-slot" id="blank-L6Q3">___</span>.</div>
+      <div class="word-choices" id="wc-L6Q3">
+        <button class="word-btn" onclick="answerFill(this,'L6Q3','running','running')">running</button>
+        <button class="word-btn" onclick="answerFill(this,'L6Q3','sleeping','running')">sleeping</button>
+        <button class="word-btn" onclick="answerFill(this,'L6Q3','jumping','running')">jumping</button>
+      </div>
+      <div class="feedback-msg" id="fb-L6Q3"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L6Q4">
+    <div class="ex-card">
+      <div class="ex-type">🔤 Reorder Letters</div>
+      <div class="ex-question"><em>Reorder letters</em>: <b>e k l a</b></div>
+      <div class="pic-for-word">🏞️</div>
+      <div class="reorder-target" id="tgt-L6Q4"></div><div class="reorder-area" id="tiles-L6Q4"></div>
+      <div><button class="reset-btn" onclick="resetReorder('L6Q4')">↺ Reset</button></div>
+      <div class="feedback-msg" id="fb-L6Q4"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L6Q5">
+    <div class="ex-card">
+      <div class="ex-type">🔤 Reorder Letters</div>
+      <div class="ex-question"><em>Reorder letters</em>: <b>n o s l e m</b></div>
+      <div class="pic-for-word">🍋</div>
+      <div class="reorder-target" id="tgt-L6Q5"></div><div class="reorder-area" id="tiles-L6Q5"></div>
+      <div><button class="reset-btn" onclick="resetReorder('L6Q5')">↺ Reset</button></div>
+      <div class="feedback-msg" id="fb-L6Q5"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L6Q6">
+    <div class="ex-card">
+      <div class="ex-type">✏️ Underline Words</div>
+      <div class="ex-question"><em>Click</em> all words beginning with <b>"l"</b>.</div>
+      <div class="underline-sentence" id="sent-L6Q6">
+        <span class="word-span" onclick="togU(this)">Look</span><span class="word-span" onclick="togU(this)">at</span><span class="word-span" onclick="togU(this)">the</span><span class="word-span" onclick="togU(this)">lemons</span><span class="word-span" onclick="togU(this)">by</span><span class="word-span" onclick="togU(this)">the</span><span class="word-span" onclick="togU(this)">lake.</span><span class="word-span" onclick="togU(this)">The</span><span class="word-span" onclick="togU(this)">lion</span><span class="word-span" onclick="togU(this)">has</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">leaf</span><span class="word-span" onclick="togU(this)">on</span><span class="word-span" onclick="togU(this)">his</span><span class="word-span" onclick="togU(this)">leg</span><span class="word-span" onclick="togU(this)">near</span><span class="word-span" onclick="togU(this)">the</span><span class="word-span" onclick="togU(this)">lunchbox.</span>
+      </div>
+      <p class="answer-hint">Answer: Look, lemons, lake, lion, leaf, leg, lunchbox</p>
+      <button class="check-btn" onclick="checkUnderline('L6Q6',['Look','lemons','lake.','lion','leaf','leg','lunchbox.'])">Check ✓</button>
+      <div class="feedback-msg" id="fb-L6Q6"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L6Q7">
+    <div class="ex-card">
+      <div class="ex-type">🔍 Find the Mistake</div>
+      <div class="ex-question"><em>Click</em> the misspelled word.</div>
+      <div class="pic-for-word" style="font-size:52px;">🏃‍♀️</div>
+      <div class="underline-sentence" id="sent-L6Q7">
+        <span class="word-span" onclick="togU(this)">She's</span><span class="word-span" onclick="togU(this)">runing.</span>
+      </div>
+      <p class="answer-hint">Correct spelling: running</p>
+      <button class="check-btn" onclick="checkUnderline('L6Q7',['runing.'])">Check ✓</button>
+      <div class="feedback-msg" id="fb-L6Q7"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L6Q8">
+    <div class="ex-card">
+      <div class="ex-type">🔡 Correct Spelling</div>
+      <div class="ex-question">Choose the correct spelling.</div>
+      <div style="font-size:68px;text-align:center;margin-bottom:12px;">🍋</div>
+      <div class="spell-choices">
+        <button class="spell-option" onclick="answerSpell(this,'L6Q8','lemmons','lemons')">A. lemmons</button>
+        <button class="spell-option" onclick="answerSpell(this,'L6Q8','lemons','lemons')">B. lemons</button>
+        <button class="spell-option" onclick="answerSpell(this,'L6Q8','lemans','lemons')">C. lemans</button>
+      </div>
+      <div class="feedback-msg" id="fb-L6Q8"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L6Q9">
+    <div class="ex-card">
+      <div class="ex-type">✅ True or False</div>
+      <div class="ex-question">Look at the picture and the word. Is it correct? Click <b>T</b> (True) or <b>F</b> (False).</div>
+      <div class="pic-for-word">🍋</div>
+      <div style="text-align:center;font-size:26px;font-weight:900;margin-bottom:14px;">lake</div>
+      <div class="tf-choices">
+        <button class="tf-btn" data-val="T" onclick="answerTF(this,'L6Q9','T','F')">T</button>
+        <button class="tf-btn" data-val="F" onclick="answerTF(this,'L6Q9','F','F')">F</button>
+      </div>
+      <p class="answer-hint">It is lemons, not a lake.</p>
+      <div class="feedback-msg" id="fb-L6Q9"></div>
+    </div>
+  </div>
+  <div class="q-slide" id="L6Q10">
+    <div class="ex-card">
+      <div class="ex-type">✏️ Missing Letter</div>
+      <div class="ex-question">Write <b>ONE</b> letter to complete the word.</div>
+      <div class="pic-for-word">🍃</div>
+      <div class="missing-letter-wrap">l<input class="missing-letter-input" id="ml-inp-L6Q10" maxlength="1" placeholder="_" autocomplete="off">af</div>
+      <button class="check-btn" onclick="checkMissingLetter('L6Q10','e')">Check ✓</button>
+      <div class="feedback-msg" id="fb-L6Q10"></div>
+    </div>
+  </div>
+  <div class="pager" id="pager-5"><button class="pager-btn" id="prev-5" onclick="changePage(5,-1)" disabled>← Back</button><span class="pager-info" id="pinfo-5">1 / 10</span><button class="pager-btn primary" id="next-5" onclick="changePage(5,1)">🎉 Finish!</button></div>
+  <div class="complete-banner" id="completeBanner">
+    <div class="big-star">⭐</div>
+    <h3>Amazing! You finished all 6 lessons!</h3>
+    <p>You learned: mango · monkey · mouse · bell · pencil · noodles · nuts · tiger · turtle · goat · kite · lake · lemons</p>
+    <div class="finish-stats" id="finishStats"></div>
+    <div class="finish-actions">
+      <button class="finish-panel-btn" id="reviewToggleBtn" onclick="toggleReview()" style="display:none">📋 Review Incorrect</button>
+      <button class="finish-panel-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to Top</button>
+    </div>
+    <div class="review-panel" id="reviewPanel" style="display:none"></div>
+  </div>
+</div>
+
+<script>
+/* ─── Lesson structure ─────────────────────────────────────────── */
+const LESSONS = [
+  {qids:['L1Q1','L1Q2','L1Q3','L1Q4','L1Q5','L1Q6','L1Q7','L1Q8']},
+  {qids:['L2Q1','L2Q2','L2Q3','L2Q4','L2Q5','L2Q6','L2Q7','L2Q8','L2Q9']},
+  {qids:['L3Q1','L3Q2','L3Q3','L3Q4','L3Q5','L3Q6','L3Q7','L3Q8','L3Q9','L3Q10']},
+  {qids:['L4Q1','L4Q2','L4Q3','L4Q4','L4Q5','L4Q6','L4Q7','L4Q8','L4Q9','L4Q10']},
+  {qids:['L5Q1','L5Q2','L5Q3','L5Q4','L5Q5','L5Q6','L5Q7','L5Q8','L5Q9','L5Q10']},
+  {qids:['L6Q1','L6Q2','L6Q3','L6Q4','L6Q5','L6Q6','L6Q7','L6Q8','L6Q9','L6Q10']},
+];
+
+/* ─── State ────────────────────────────────────────────────────── */
+const pages         = [0,0,0,0,0,0];
+const scores        = {};           // {qid: true|false}
+const userSelections= {};           // {qid: chosenValue}
+const CORRECT_ANS   = {};           // {qid: correctValue}
+const Q_TYPES       = {};           // {qid: 'word'|'pic'|'fill'|'spell'}
+const selectedEls   = {};           // {qid: selected DOM element}
+const correctEls    = {};           // {qid: correct DOM element}
+const reorderState  = {};
+const matchState    = {};
+
+/* ─── Reorder data ─────────────────────────────────────────────── */
+const REORDER_ANS = {
+  L1Q5:'mango', L1Q6:'monkey',
+  L2Q4:'bell',  L2Q5:'pencil', L2Q6:'bag',
+  L3Q4:'bananas',L3Q5:'nuts',
+  L4Q4:'tiger', L4Q5:'turtle',
+  L5Q3:'goat',  L5Q4:'kite',
+  L6Q4:'lake',  L6Q5:'lemons'
+};
+const REORDER_LETTERS = {
+  L1Q5:['a','m','n','g','o'], L1Q6:['k','e','y','n','o','m'],
+  L2Q4:['l','e','b','l'],     L2Q5:['l','i','c','n','e','p'], L2Q6:['g','a','b'],
+  L3Q4:['a','n','a','b','a','n','s'], L3Q5:['t','u','n','s'],
+  L4Q4:['g','e','r','t','i'], L4Q5:['t','u','r','t','l','e'],
+  L5Q3:['g','o','a','t'],     L5Q4:['k','i','t','e'],
+  L6Q4:['l','a','k','e'],     L6Q5:['l','e','m','o','n','s']
+};
+
+/* ─── Underline answer map (used for auto-grade on Finish) ─────── */
+const UNDERLINE_ANS = {
+  L1Q7:['mother','milk','monkey','mouse.','man','moon','map.'],
+  L1Q8:['mounkey'],
+  L3Q6:['nine','noodles.','name','net','new.'],
+  L3Q7:['noodless.'],
+  L4Q6:['tiger','turtle','table.','toy','top','tree.'],
+  L4Q7:['tigger.'],
+  L5Q5:['girl','has','hat','juice.','king','kite','lion','moon.'],
+  L5Q6:['gote'],
+  L6Q6:['Look','lemons','lake.','lion','leaf','leg','lunchbox.'],
+  L6Q7:['runing.']
+};
+
+/* ─── Missing letter answer map ─────────────────────────────────── */
+const MISSING_LETTER_ANS = {
+  L3Q10:'u',   // n_ts  → nuts
+  L4Q10:'o',   // t_p   → top
+  L5Q10:'a',   // h_t   → hat
+  L6Q10:'e',   // l_af  → leaf
+};
+
+/* ─── Look & Match config — pairs define both columns ─────────── */
+const MATCH_CONFIG = {
+  'L2Q9': {
+    lp:'ml-', rp:'mr-',
+    pairs:[
+      {key:'a', imageLabel:'a &nbsp;<span style="font-size:34px">🔔</span>', wordLabel:'a bell'},
+      {key:'b', imageLabel:'b &nbsp;<span style="font-size:34px">📏</span>', wordLabel:'a ruler'},
+      {key:'c', imageLabel:'c &nbsp;<span style="font-size:34px">✏️</span>', wordLabel:'a pencil'},
+      {key:'d', imageLabel:'d &nbsp;<span style="font-size:34px">🖋️</span>', wordLabel:'a pen'},
+    ]
+  },
+  'L4Q8': {
+    lp:'ml4-', rp:'mr4-',
+    pairs:[
+      {key:'tiger',  imageLabel:'<span style="font-size:34px">🐯</span>', wordLabel:'tiger'},
+      {key:'turtle', imageLabel:'<span style="font-size:34px">🐢</span>', wordLabel:'turtle'},
+      {key:'bear',   imageLabel:'<span style="font-size:34px">🧸</span>', wordLabel:'teddy bear'},
+      {key:'top',    imageLabel:'<span style="font-size:34px">🪀</span>', wordLabel:'top'},
+    ]
+  }
+};
+
+/* MATCH_DATA is derived & populated by buildMatchExercise */
+const MATCH_DATA = {};
+
+/* Unique pair colors — same color on matched left + right item */
+const PAIR_COLORS = ['#f97316','#8b5cf6','#06b6d4','#ec4899','#10b981','#f59e0b'];
+
+/* ─── Utility ──────────────────────────────────────────────────── */
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ─── Init ─────────────────────────────────────────────────────── */
+window.addEventListener('DOMContentLoaded', () => {
+  LESSONS.forEach((l, li) => {
+    buildDots(li);
+    l.qids.forEach(qid => {
+      if (REORDER_ANS[qid]) buildReorder(qid);
+    });
+  });
+  Object.keys(MATCH_CONFIG).forEach(qid => buildMatchExercise(qid));
+  injectCheckButtons();
+  updateProgress();
+});
+
+/* ─── Build dot nav ────────────────────────────────────────────── */
+function buildDots(li) {
+  const row = document.getElementById('dots-' + li); if (!row) return;
+  LESSONS[li].qids.forEach((qid, qi) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (qi === 0 ? ' active' : '');
+    d.id = 'dot-' + qid; d.title = qid;
+    d.onclick = () => goToPage(li, qi);
+    row.appendChild(d);
+  });
+}
+
+/* ─── Build reorder exercise ───────────────────────────────────── */
+function buildReorder(qid) {
+  const letters = REORDER_LETTERS[qid]; const answer = REORDER_ANS[qid];
+  const tgt = document.getElementById('tgt-' + qid);
+  const area = document.getElementById('tiles-' + qid);
+  if (!tgt || !area) return;
+  tgt.innerHTML = ''; area.innerHTML = '';
+  for (let i = 0; i < answer.length; i++) {
+    const s = document.createElement('div');
+    s.className = 'reorder-slot'; s.id = qid + '-s' + i;
+    tgt.appendChild(s);
+  }
+  const shuffled = shuffle(letters.map((l, i) => ({ l, i })));
+  shuffled.forEach(({ l, i }) => {
+    const btn = document.createElement('button');
+    btn.className = 'letter-tile'; btn.textContent = l; btn.id = qid + '-tile' + i;
+    btn.onclick = () => placeLetter(btn, qid, l, answer);
+    area.appendChild(btn);
+  });
+  reorderState[qid] = [];
+}
+
+/* ─── Build Look & Match (randomized + color-coded) ───────────── */
+function buildMatchExercise(qid) {
+  const cfg = MATCH_CONFIG[qid]; if (!cfg) return;
+  const leftEl  = document.getElementById('match-left-'  + qid);
+  const rightEl = document.getElementById('match-right-' + qid);
+  if (!leftEl || !rightEl) return;
+
+  /* Derive MATCH_DATA entry: each pair key maps to itself */
+  const correct = {};
+  cfg.pairs.forEach(p => { correct[p.key] = p.key; });
+  MATCH_DATA[qid] = { correct, lp: cfg.lp, rp: cfg.rp };
+
+  /* Shuffle images and words independently */
+  const shuffledImages = shuffle(cfg.pairs);
+  const shuffledWords  = shuffle(cfg.pairs);
+
+  leftEl.innerHTML = ''; rightEl.innerHTML = '';
+
+  shuffledImages.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'match-item'; el.id = cfg.lp + p.key;
+    el.innerHTML = p.imageLabel;
+    el.onclick = () => pickMatch(qid, 'left', p.key);
+    leftEl.appendChild(el);
+  });
+  shuffledWords.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'match-item'; el.id = cfg.rp + p.key;
+    el.textContent = p.wordLabel;
+    el.onclick = () => pickMatch(qid, 'right', p.key);
+    rightEl.appendChild(el);
+  });
+
+  matchState[qid] = { left: null, right: null, pairs: {}, pairCount: 0 };
+}
+
+/* ─── Inject Check buttons for word / pic / fill / spell Qs ───── */
+function injectCheckButtons() {
+  document.querySelectorAll('.q-slide').forEach(slide => {
+    const qid = slide.id;
+    if (!slide.querySelector('.check-btn')) {
+      const hasChoice = slide.querySelector('.word-choices, .pic-choices, .spell-choices');
+      if (!hasChoice) return;
+      const fb = slide.querySelector('.feedback-msg');
+      const btn = document.createElement('button');
+      btn.className = 'check-btn'; btn.id = 'chk-' + qid;
+      btn.textContent = 'Check ✓';
+      btn.onclick = () => gradeSelection(qid);
+      if (fb) fb.before(btn); else slide.querySelector('.ex-card').appendChild(btn);
+    }
+  });
+}
+
+/* ─── Show hint paragraph after grading ───────────────────────── */
+function showHint(qid) {
+  const slide = document.getElementById(qid); if (!slide) return;
+  slide.querySelectorAll('.answer-hint').forEach(p => p.style.display = '');
+}
+
+/* ─── Selection handlers (replaces direct-grade answerXxx) ─────── */
+function answerWord(btn, qid, chosen, correct) {
+  if (scores[qid] !== undefined) return;
+  CORRECT_ANS[qid] = correct; Q_TYPES[qid] = 'word';
+  const container = btn.closest('.word-choices');
+  container.querySelectorAll('.word-btn').forEach(b => {
+    b.classList.remove('selected');
+    /* Cache the correct-answer button for grading */
+    const m = b.getAttribute('onclick').match(/,'([^']+)'\)$/);
+    if (m && m[1] === correct) correctEls[qid] = b;
+  });
+  btn.classList.add('selected');
+  userSelections[qid] = chosen;
+  selectedEls[qid] = btn;
+}
+
+function answerPic(el, qid, chosen, correct) {
+  if (scores[qid] !== undefined) return;
+  CORRECT_ANS[qid] = correct; Q_TYPES[qid] = 'pic';
+  el.parentNode.querySelectorAll('.pic-choice').forEach(p => {
+    p.classList.remove('selected');
+    if (p.querySelector('.pic-label').textContent === correct) correctEls[qid] = p;
+  });
+  el.classList.add('selected');
+  userSelections[qid] = chosen;
+  selectedEls[qid] = el;
+}
+
+function answerFill(btn, qid, chosen, correct) {
+  if (scores[qid] !== undefined) return;
+  CORRECT_ANS[qid] = correct; Q_TYPES[qid] = 'fill';
+  const container = document.getElementById('wc-' + qid);
+  container.querySelectorAll('.word-btn').forEach(b => {
+    b.classList.remove('selected');
+    const m = b.getAttribute('onclick').match(/,'([^']+)'\)$/);
+    if (m && m[1] === correct) correctEls[qid] = b;
+  });
+  btn.classList.add('selected');
+  userSelections[qid] = chosen;
+  selectedEls[qid] = btn;
+}
+
+function answerSpell(btn, qid, chosen, correct) {
+  if (scores[qid] !== undefined) return;
+  CORRECT_ANS[qid] = correct; Q_TYPES[qid] = 'spell';
+  btn.closest('.spell-choices').querySelectorAll('.spell-option').forEach(b => {
+    b.classList.remove('selected');
+    const m = b.getAttribute('onclick').match(/,'([^']+)'\)$/);
+    if (m && m[1] === correct) correctEls[qid] = b;
+  });
+  btn.classList.add('selected');
+  userSelections[qid] = chosen;
+  selectedEls[qid] = btn;
+}
+
+/* ─── Grade a selection (called by injected Check button) ──────── */
+function gradeSelection(qid, auto = false) {
+  if (scores[qid] !== undefined) return;
+  const chosen  = userSelections[qid];
+  const correct = CORRECT_ANS[qid];
+  const type    = Q_TYPES[qid];
+  const selEl   = selectedEls[qid];
+  const corrEl  = correctEls[qid];
+
+  if (chosen === undefined) {
+    if (auto) { setScore(qid, false); showFB(qid, false, 'Not answered.'); }
+    else { showFB(qid, false, 'Please choose an answer first! 👆'); }
+    return;
+  }
+
+  const ok = chosen === correct;
+
+  if (type === 'word') {
+    const container = selEl.closest('.word-choices');
+    container.querySelectorAll('.word-btn').forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    selEl.classList.add(ok ? 'correct' : 'wrong');
+    if (!ok && corrEl) corrEl.classList.add('correct');
+    showFB(qid, ok, ok ? 'Great answer! 🌟' : 'Correct answer: ' + correct);
+  } else if (type === 'pic') {
+    selEl.parentNode.querySelectorAll('.pic-choice').forEach(p => {
+      p.setAttribute('data-locked','1'); p.style.cursor = 'default'; p.classList.remove('selected');
+    });
+    selEl.classList.add(ok ? 'correct' : 'wrong');
+    if (!ok && corrEl) corrEl.classList.add('correct');
+    showFB(qid, ok, ok ? 'Correct picture! 🎉' : 'The correct answer is picture ' + correct + '!');
+  } else if (type === 'fill') {
+    const slot = document.getElementById('blank-' + qid);
+    if (slot) { slot.textContent = chosen; slot.style.color = ok ? '#15803d' : '#b91c1c'; }
+    const container = document.getElementById('wc-' + qid);
+    container.querySelectorAll('.word-btn').forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    selEl.classList.add(ok ? 'correct' : 'wrong');
+    if (!ok && corrEl) corrEl.classList.add('correct');
+    showFB(qid, ok, ok ? 'Well done! 🌟' : 'The correct word is: ' + correct);
+  } else if (type === 'spell') {
+    const container = selEl.closest('.spell-choices');
+    container.querySelectorAll('.spell-option').forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    selEl.classList.add(ok ? 'correct' : 'wrong');
+    if (!ok && corrEl) corrEl.classList.add('correct');
+    showFB(qid, ok, ok ? 'Correct spelling! 🎉' : 'Correct spelling: ' + correct);
+  } else if (type === 'tf') {
+    const container = selEl.closest('.tf-choices');
+    container.querySelectorAll('.tf-btn').forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+    selEl.classList.add(ok ? 'correct' : 'wrong');
+    if (!ok && corrEl) corrEl.classList.add('correct');
+    showFB(qid, ok, ok ? "That's right! 🌟" : 'The correct answer is: ' + correct + '!');
+  }
+
+  setScore(qid, ok);
+  showHint(qid);
+  const chkBtn = document.getElementById('chk-' + qid);
+  if (chkBtn) chkBtn.disabled = true;
+}
+
+/* ─── True / False selection ───────────────────────────────────── */
+function answerTF(btn, qid, chosen, correct) {
+  if (scores[qid] !== undefined) return;
+  CORRECT_ANS[qid] = correct; Q_TYPES[qid] = 'tf';
+  btn.closest('.tf-choices').querySelectorAll('.tf-btn').forEach(b => {
+    b.classList.remove('selected');
+    if (b.dataset.val === correct) correctEls[qid] = b;
+  });
+  btn.classList.add('selected');
+  userSelections[qid] = chosen;
+  selectedEls[qid] = btn;
+}
+
+/* ─── Missing letter check ─────────────────────────────────────── */
+function checkMissingLetter(qid, answer) {
+  if (scores[qid] !== undefined) return;
+  const inp = document.getElementById('ml-inp-' + qid); if (!inp) return;
+  const val = inp.value.trim().toLowerCase();
+  if (!val) { showFB(qid, false, 'Please type a letter first! 👆'); return; }
+  const ok = val === answer.toLowerCase();
+  inp.disabled = true;
+  inp.style.borderColor = ok ? '#22c55e' : '#e63946';
+  inp.style.background  = ok ? '#f0fdf4' : '#fff0f0';
+  inp.style.color       = ok ? '#15803d' : '#b91c1c';
+  showFB(qid, ok, ok ? 'Correct letter! 🎉' : 'The correct letter is: "' + answer + '"');
+  setScore(qid, ok);
+  showHint(qid);
+}
+function pickMatch(qid, side, key) {
+  if (scores[qid] !== undefined) return;
+  if (!matchState[qid]) matchState[qid] = { left:null, right:null, pairs:{}, pairCount:0 };
+  const md = MATCH_DATA[qid]; if (!md) return;
+  const ms = matchState[qid];
+
+  if (side === 'left') {
+    document.querySelectorAll('[id^="' + md.lp + '"]').forEach(e => {
+      if (!e.classList.contains('matched')) e.classList.remove('picked');
+    });
+    const el = document.getElementById(md.lp + key);
+    if (el && !el.classList.contains('matched')) { el.classList.add('picked'); ms.left = key; }
+  } else {
+    document.querySelectorAll('[id^="' + md.rp + '"]').forEach(e => {
+      if (!e.classList.contains('matched')) e.classList.remove('picked');
+    });
+    const el = document.getElementById(md.rp + key);
+    if (el && !el.classList.contains('matched')) { el.classList.add('picked'); ms.right = key; }
+  }
+
+  if (ms.left && ms.right) {
+    const l = ms.left, r = ms.right;
+    const elL = document.getElementById(md.lp + l);
+    const elR = document.getElementById(md.rp + r);
+
+    if (md.correct[l] === r) {
+      /* Correct pair — apply unique color */
+      const color = PAIR_COLORS[ms.pairCount % PAIR_COLORS.length];
+      ms.pairCount++;
+      ms.pairs[l] = r;
+      [elL, elR].forEach(el => {
+        el.classList.remove('picked');
+        el.classList.add('matched');
+        el.style.borderColor = color;
+        el.style.background  = color + '22';
+        el.style.color       = '#1a1a2e';
+      });
+    } else {
+      /* Wrong pair — flash and clear */
+      [elL, elR].forEach(el => {
+        if (!el) return;
+        el.classList.remove('picked');
+        el.style.borderColor = 'var(--red)';
+        el.style.background  = '#fff0f0';
+        setTimeout(() => {
+          el.style.borderColor = '';
+          el.style.background  = '';
+        }, 600);
+      });
+    }
+    ms.left = null; ms.right = null;
+  }
+}
+
+/* ─── Check all match pairs complete ──────────────────────────── */
+function checkMatch(qid) {
+  const md = MATCH_DATA[qid]; if (!md) return;
+  if (scores[qid] !== undefined) return;
+  const ms = matchState[qid] || { pairs:{}, pairCount:0 };
+  const total   = Object.keys(md.correct).length;
+  const matched = Object.keys(ms.pairs).length;
+  const ok = matched === total && Object.keys(md.correct).every(k => ms.pairs[k] === md.correct[k]);
+  showFB(qid, ok, ok ? 'All matched correctly! 🎉' : matched + ' / ' + total + ' matched. Keep trying!');
+  if (ok) setScore(qid, true);
+}
+
+/* ─── Underline / Find-Mistake check ──────────────────────────── */
+function togU(el) { el.classList.toggle('underlined'); }
+
+function checkUnderline(qid, correctWords) {
+  if (scores[qid] !== undefined) return;
+  const sent = document.getElementById('sent-' + qid); if (!sent) return;
+  let ok = true;
+  sent.querySelectorAll('.word-span').forEach(sp => {
+    const w = sp.textContent.trim();
+    const should = correctWords.includes(w);
+    const has    = sp.classList.contains('underlined');
+    sp.classList.remove('underlined'); sp.style.cursor = 'default'; sp.onclick = null;
+    if (should && has)  sp.classList.add('correct');
+    else if (should)  { sp.classList.add('wrong'); ok = false; }
+    else if (has)     { sp.classList.add('wrong'); ok = false; }
+  });
+  showFB(qid, ok, ok ? 'Well done! All correct! 🌟' : 'Not quite — correct words: ' + correctWords.join(', '));
+  setScore(qid, ok);
+  showHint(qid);
+}
+
+/* ─── Reorder (spell-by-tile) ──────────────────────────────────── */
+function placeLetter(btn, qid, letter, answer) {
+  if (btn.classList.contains('used') || scores[qid] !== undefined) return;
+  if (!reorderState[qid]) reorderState[qid] = [];
+  const arr = reorderState[qid];
+  const pos = arr.length; if (pos >= answer.length) return;
+  arr.push(letter); btn.classList.add('used');
+  const slot = document.getElementById(qid + '-s' + pos); if (slot) slot.textContent = letter;
+  if (arr.length === answer.length) {
+    const formed = arr.join(''); const ok = formed === answer;
+    for (let i = 0; i < answer.length; i++) {
+      const s = document.getElementById(qid + '-s' + i);
+      if (s) { s.style.background = ok ? '#f0fdf4' : '#fff0f0'; s.style.color = ok ? '#15803d' : '#b91c1c'; s.style.borderColor = ok ? '#22c55e' : '#e63946'; }
+    }
+    showFB(qid, ok, ok ? 'Perfect spelling! 🎉' : 'Almost! The word is: ' + answer + '. Try again!');
+    if (ok) setScore(qid, true);
+    else setTimeout(() => resetReorder(qid), 1400);
+  }
+}
+
+function resetReorder(qid) {
+  reorderState[qid] = [];
+  const answer = REORDER_ANS[qid] || '';
+  for (let i = 0; i < answer.length; i++) {
+    const s = document.getElementById(qid + '-s' + i);
+    if (s) { s.textContent = ''; s.style.background = ''; s.style.color = ''; s.style.borderColor = ''; }
+  }
+  const area = document.getElementById('tiles-' + qid);
+  if (area) area.querySelectorAll('.letter-tile').forEach(t => t.classList.remove('used'));
+  const fb = document.getElementById('fb-' + qid);
+  if (fb) { fb.className = 'feedback-msg'; fb.textContent = ''; }
+}
+
+/* ─── Navigation ───────────────────────────────────────────────── */
+function switchLesson(li, tabEl) {
+  document.querySelectorAll('.lesson').forEach(l => l.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('lesson-' + li).classList.add('active');
+  tabEl.classList.add('active');
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function goToPage(li, page) {
+  const qids = LESSONS[li].qids; const total = qids.length;
+  if (page < 0 || page >= total) return;
+  qids.forEach(qid => {
+    const el = document.getElementById(qid); if (el) el.classList.remove('active');
+    const d  = document.getElementById('dot-' + qid); if (d) d.classList.remove('active');
+  });
+  document.getElementById(qids[page]).classList.add('active');
+  const dot = document.getElementById('dot-' + qids[page]); if (dot) dot.classList.add('active');
+  pages[li] = page;
+  const prev = document.getElementById('prev-' + li);
+  const next = document.getElementById('next-' + li);
+  const info = document.getElementById('pinfo-' + li);
+  if (prev) prev.disabled = page === 0;
+  if (next) {
+    const isLast = page === total - 1;
+    next.textContent = isLast ? (li < 5 ? 'Next Lesson →' : '🎉 Finish!') : 'Next →';
+    next.disabled = false;
+  }
+  if (info) info.textContent = (page + 1) + ' / ' + total;
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function changePage(li, dir) {
+  const p     = pages[li] + dir;
+  const total = LESSONS[li].qids.length;
+  if (p < 0) return;
+  if (p >= total) {
+    if (li < 5) {
+      switchLesson(li + 1, document.querySelectorAll('.tab')[li + 1]);
+    } else {
+      finishAllLessons();
+    }
+    return;
+  }
+  goToPage(li, p);
+}
+
+/* ─── Score tracking ───────────────────────────────────────────── */
+function setScore(qid, ok) {
+  if (scores[qid] !== undefined) return;
+  scores[qid] = ok;
+  const d = document.getElementById('dot-' + qid);
+  if (d) { d.classList.remove('active'); d.classList.add(ok ? 'done' : 'err'); }
+  updateProgress();
+}
+
+function showFB(qid, ok, msg) {
+  const fb = document.getElementById('fb-' + qid); if (!fb) return;
+  fb.className = 'feedback-msg ' + (ok ? 'show-ok' : 'show-err');
+  fb.textContent = (ok ? '✅ ' : '🔄 ') + msg;
+}
+
+function updateProgress() {
+  const total = LESSONS.reduce((s, l) => s + l.qids.length, 0);
+  const done  = Object.keys(scores).length;
+  document.getElementById('progressBar').style.width = (done / total * 100) + '%';
+  document.getElementById('progressText').textContent = done + ' / ' + total + ' answered';
+}
+
+/* ─── Finish: auto-grade everything, show summary ─────────────── */
+function finishAllLessons() {
+  LESSONS.forEach(l => {
+    l.qids.forEach(qid => {
+      if (scores[qid] !== undefined) return; // already graded
+
+      if (Q_TYPES[qid]) {
+        /* word / pic / fill / spell — grade with auto flag */
+        gradeSelection(qid, true);
+      } else if (UNDERLINE_ANS[qid]) {
+        /* underline / find-mistake */
+        checkUnderline(qid, UNDERLINE_ANS[qid]);
+      } else if (MATCH_DATA[qid]) {
+        /* match exercise */
+        const md = MATCH_DATA[qid];
+        const ms = matchState[qid] || { pairs:{} };
+        const ok = Object.keys(md.correct).every(k => ms.pairs[k] === md.correct[k]);
+        setScore(qid, ok);
+        showFB(qid, ok, ok ? 'All matched correctly! 🎉' : 'Not all pairs matched.');
+      } else if (REORDER_ANS[qid]) {
+        /* reorder not completed */
+        setScore(qid, false);
+        showFB(qid, false, 'Not completed.');
+      } else if (MISSING_LETTER_ANS[qid]) {
+        /* missing letter — auto-grade from input value */
+        checkMissingLetter(qid, MISSING_LETTER_ANS[qid]);
+      }
+    });
+  });
+
+  /* Build summary */
+  const correct   = Object.values(scores).filter(v => v === true).length;
+  const incorrect = Object.values(scores).filter(v => v === false).length;
+
+  document.getElementById('finishStats').innerHTML =
+    `<div class="finish-stat"><span class="num">${correct}</span><span class="lbl">✅ Correct</span></div>` +
+    `<div class="finish-stat"><span class="num">${incorrect}</span><span class="lbl">❌ Incorrect</span></div>` +
+    `<div class="finish-stat"><span class="num">${correct + incorrect}</span><span class="lbl">📝 Total</span></div>`;
+
+  const reviewBtn = document.getElementById('reviewToggleBtn');
+  if (reviewBtn) reviewBtn.style.display = incorrect > 0 ? 'inline-block' : 'none';
+
+  const banner = document.getElementById('completeBanner');
+  banner.classList.add('show');
+  banner.scrollIntoView({ behavior:'smooth' });
+}
+
+/* ─── Review incorrect questions ──────────────────────────────── */
+function toggleReview() {
+  const panel = document.getElementById('reviewPanel');
+  if (panel.style.display === 'block') { panel.style.display = 'none'; return; }
+
+  const incorrectQids = Object.entries(scores)
+    .filter(([, v]) => v === false)
+    .map(([k]) => k);
+
+  let html = '<h4>📋 Incorrect Questions — click to review:</h4>';
+  incorrectQids.forEach(qid => {
+    const li = LESSONS.findIndex(l => l.qids.includes(qid));
+    const qi = LESSONS[li].qids.indexOf(qid);
+    const labels = ['Mm','School','Nn','Tt','Phonics','Actions'];
+    html += `<button class="review-goto-btn" onclick="goToReview(${li},${qi},'${qid}')">
+      📍 Lesson ${li + 1} (${labels[li]}) — Question ${qi + 1}
+    </button>`;
+  });
+
+  panel.innerHTML = html;
+  panel.style.display = 'block';
+}
+
+function goToReview(li, qi, qid) {
+  switchLesson(li, document.querySelectorAll('.tab')[li]);
+  goToPage(li, qi);
+  setTimeout(() => {
+    const el = document.getElementById(qid);
+    if (el) el.scrollIntoView({ behavior:'smooth', block:'center' });
+  }, 350);
+}
+
+/* ─── Speech ───────────────────────────────────────────────────── */
+function speak(text) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US'; u.rate = 0.82; u.pitch = 1.05;
+  window.speechSynthesis.speak(u);
+}
+</script>
+</body>
+</html>
