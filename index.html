@@ -55,11 +55,11 @@
   .pic-choice .pic-name  { font-size:12px; font-weight:600; color:var(--muted); visibility:hidden; }
   .pic-choice.correct .pic-name, .pic-choice.wrong .pic-name { visibility:visible; }
   .word-choices { display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
-  .word-btn { padding:10px 22px; border-radius:30px; background:var(--blue); color:white; border:none; font-family:'Nunito',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all .2s; }
-  .word-btn:hover:not(:disabled) { background:#2d4fcf; transform:translateY(-1px); }
-  .word-btn.selected { background:#7c3aed; box-shadow:0 0 0 3px rgba(124,58,237,.25); }
-  .word-btn.correct { background:#22c55e; }
-  .word-btn.wrong   { background:var(--red); }
+  .word-btn { padding:10px 22px; border-radius:30px; background:linear-gradient(135deg,#e5e7eb 0%,#d1d5db 100%); color:#374151; border:2px solid #9ca3af; font-family:'Nunito',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all .2s; }
+  .word-btn:hover:not(:disabled) { background:linear-gradient(135deg,#d1d5db 0%,#9ca3af 100%); transform:translateY(-1px); }
+  .word-btn.selected { background:var(--blue); color:white; border-color:var(--blue); box-shadow:0 4px 14px rgba(67,97,238,.4); transform:translateY(-1px); }
+  .word-btn.correct { background:#22c55e; color:white; border-color:#22c55e; }
+  .word-btn.wrong   { background:var(--red); color:white; border-color:var(--red); }
   .sentence-blank { font-size:20px; font-weight:700; background:var(--yellow-light); border-radius:10px; padding:14px 18px; margin-bottom:14px; line-height:1.8; }
   .blank-slot { display:inline-block; min-width:100px; border-bottom:3px solid var(--green); text-align:center; padding:0 8px; color:var(--green); font-weight:800; margin:0 4px; }
   .reorder-target { display:flex; gap:8px; flex-wrap:wrap; min-height:52px; align-items:center; margin-bottom:14px; }
@@ -76,9 +76,9 @@
   .word-span.correct    { border-bottom-color:#22c55e; background:#f0fdf4; color:#15803d; }
   .word-span.wrong      { border-bottom-color:var(--red); background:#fff0f0; color:var(--red); text-decoration:line-through; }
   .spell-choices { display:flex; flex-direction:column; gap:8px; }
-  .spell-option { padding:12px 18px; border-radius:10px; border:2px solid var(--border); background:white; font-family:'Nunito',sans-serif; font-size:16px; font-weight:700; cursor:pointer; text-align:left; transition:all .2s; }
-  .spell-option:hover:not(:disabled) { border-color:var(--blue); background:var(--blue-light); color:var(--blue); }
-  .spell-option.selected { border-color:#7c3aed; background:#ede9fe; color:#7c3aed; }
+  .spell-option { padding:12px 18px; border-radius:10px; border:2px solid #9ca3af; background:linear-gradient(135deg,#e5e7eb 0%,#d1d5db 100%); font-family:'Nunito',sans-serif; font-size:16px; font-weight:700; cursor:pointer; text-align:left; transition:all .2s; color:#374151; }
+  .spell-option:hover:not(:disabled) { background:linear-gradient(135deg,#d1d5db 0%,#9ca3af 100%); border-color:#6b7280; }
+  .spell-option.selected { border-color:var(--blue); background:var(--blue); color:white; box-shadow:0 4px 14px rgba(67,97,238,.4); }
   .spell-option.correct { border-color:#22c55e; background:#f0fdf4; color:#15803d; }
   .spell-option.wrong   { border-color:var(--red); background:#fff0f0; color:var(--red); }
   .match-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
@@ -244,9 +244,9 @@
     <div class="ex-card">
       <div class="ex-type">🔍 Find the Mistake</div>
       <div class="ex-question"><em>Click</em> the misspelled word.</div>
-      <div class="pic-for-word" style="font-size:52px;">🐒</div>
+      <div class="pic-for-word" style="font-size:52px;">🐒🍌</div>
       <div class="underline-sentence" id="sent-L1Q8">
-        <span class="word-span" onclick="togU(this)">I</span><span class="word-span" onclick="togU(this)">see</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">mounkey</span><span class="word-span" onclick="togU(this)">eating</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">mango.</span>
+        <span class="word-span" onclick="togU(this)">I</span><span class="word-span" onclick="togU(this)">see</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">mounkey</span><span class="word-span" onclick="togU(this)">eating</span><span class="word-span" onclick="togU(this)">a</span><span class="word-span" onclick="togU(this)">banana.</span>
       </div>
       <p class="answer-hint">Correct spelling: monkey</p>
       <button class="check-btn" onclick="checkUnderline('L1Q8',['mounkey'])">Check ✓</button>
@@ -257,8 +257,8 @@
     <div class="ex-card">
       <div class="ex-type">📝 Complete the Sentence</div>
       <div class="ex-question">Choose the correct word to complete the sentence.</div>
-      <div class="pic-for-word">🐒</div>
-      <div class="sentence-blank">The <span class="blank-slot" id="blank-L1Q9">___</span> eats a mango.</div>
+      <div class="pic-for-word">🐒🍌</div>
+      <div class="sentence-blank">The <span class="blank-slot" id="blank-L1Q9">___</span> eats a banana.</div>
       <div class="word-choices" id="wc-L1Q9">
         <button class="word-btn" onclick="answerFill(this,'L1Q9','monkey','monkey')">monkey</button>
         <button class="word-btn" onclick="answerFill(this,'L1Q9','mouse','monkey')">mouse</button>
@@ -424,7 +424,7 @@
     <div class="ex-card">
       <div class="ex-type">📝 Complete the Sentence</div>
       <div class="ex-question">Choose the correct word to complete the sentence.</div>
-      <div class="pic-for-word">📚</div>
+      <div class="pic-for-word">📖</div>
       <div class="sentence-blank">I read a <span class="blank-slot" id="blank-L2Q10">___</span>.</div>
       <div class="word-choices" id="wc-L2Q10">
         <button class="word-btn" onclick="answerFill(this,'L2Q10','book','book')">book</button>
@@ -564,7 +564,7 @@
     <div class="ex-card">
       <div class="ex-type">🔡 Correct Spelling</div>
       <div class="ex-question">Choose the correct spelling.</div>
-      <div style="font-size:68px;text-align:center;margin-bottom:12px;">🍌</div>
+      <div style="font-size:68px;text-align:center;margin-bottom:12px;">🍌🍌🍌</div>
       <div class="spell-choices">
         <button class="spell-option" onclick="answerSpell(this,'L3Q8','bananas','bananas')">A. bananas</button>
         <button class="spell-option" onclick="answerSpell(this,'L3Q8','banannas','bananas')">B. banannas</button>
@@ -590,7 +590,7 @@
     <div class="ex-card">
       <div class="ex-type">✏️ Missing Letter</div>
       <div class="ex-question">Write <b>ONE</b> letter to complete the word.</div>
-      <div class="pic-for-word">🥜</div>
+      <div class="pic-for-word">🥜🥜🥜</div>
       <div class="missing-letter-wrap">n<input class="missing-letter-input" id="ml-inp-L3Q10" maxlength="1" placeholder="_" autocomplete="off">ts</div>
       <button class="check-btn" onclick="checkMissingLetter('L3Q10','u')">Check ✓</button>
       <div class="feedback-msg" id="fb-L3Q10"></div>
@@ -753,8 +753,8 @@
     <div class="ex-card">
       <div class="ex-type">✏️ Missing Letter</div>
       <div class="ex-question">Write <b>ONE</b> letter to complete the word.</div>
-      <div class="pic-for-word">🪀</div>
-      <div class="missing-letter-wrap">t<input class="missing-letter-input" id="ml-inp-L4Q10" maxlength="1" placeholder="_" autocomplete="off">p</div>
+      <div class="pic-for-word">🧸</div>
+      <div class="missing-letter-wrap">t<input class="missing-letter-input" id="ml-inp-L4Q10" maxlength="1" placeholder="_" autocomplete="off">y</div>
       <button class="check-btn" onclick="checkMissingLetter('L4Q10','o')">Check ✓</button>
       <div class="feedback-msg" id="fb-L4Q10"></div>
     </div>
@@ -1169,7 +1169,7 @@ const MISSING_LETTER_ANS = {
   L1Q12:'a',   // m_p  → map
   L2Q13:'a',   // b_g  → bag
   L3Q10:'u',   // n_ts → nuts
-  L4Q10:'o',   // t_p  → top
+  L4Q10:'o',   // t_y  → toy
   L5Q10:'a',   // h_t  → hat
   L6Q10:'e',   // l_af → leaf
 };
@@ -1209,7 +1209,7 @@ const MATCH_CONFIG = {
       {key:'tiger',  imageLabel:'<span style="font-size:34px">🐯</span>', wordLabel:'tiger'},
       {key:'turtle', imageLabel:'<span style="font-size:34px">🐢</span>', wordLabel:'turtle'},
       {key:'bear',   imageLabel:'<span style="font-size:34px">🧸</span>', wordLabel:'teddy bear'},
-      {key:'top',    imageLabel:'<span style="font-size:34px">🪀</span>', wordLabel:'top'},
+      {key:'top',    imageLabel:'<span style="font-size:22px;font-weight:900">🔺TOP</span>', wordLabel:'top'},
     ]
   }
 };
@@ -1237,6 +1237,9 @@ window.addEventListener('DOMContentLoaded', () => {
     l.qids.forEach(qid => {
       if (REORDER_ANS[qid]) buildReorder(qid);
     });
+    /* Disable all Next/Finish buttons — they unlock after answering */
+    const nextBtn = document.getElementById('next-' + li);
+    if (nextBtn) nextBtn.disabled = true;
   });
   Object.keys(MATCH_CONFIG).forEach(qid => buildMatchExercise(qid));
   injectCheckButtons();
@@ -1324,9 +1327,22 @@ function injectCheckButtons() {
       const btn = document.createElement('button');
       btn.className = 'check-btn'; btn.id = 'chk-' + qid;
       btn.textContent = 'Check ✓';
+      btn.disabled = true;
       btn.onclick = () => gradeSelection(qid);
       if (fb) fb.before(btn); else slide.querySelector('.ex-card').appendChild(btn);
     }
+  });
+  /* Disable all static Check buttons (underline / match / missing-letter) */
+  document.querySelectorAll('.check-btn').forEach(btn => { btn.disabled = true; });
+  /* Enable missing-letter check when user types */
+  document.querySelectorAll('.missing-letter-input').forEach(inp => {
+    inp.addEventListener('input', () => {
+      const card = inp.closest('.ex-card'); if (!card) return;
+      const btn = card.querySelector('.check-btn');
+      if (btn) btn.disabled = !inp.value.trim();
+      const slide = inp.closest('.q-slide');
+      if (slide && inp.value.trim()) enableNextForQid(slide.id);
+    });
   });
 }
 
@@ -1334,6 +1350,14 @@ function injectCheckButtons() {
 function showHint(qid) {
   const slide = document.getElementById(qid); if (!slide) return;
   slide.querySelectorAll('.answer-hint').forEach(p => p.style.display = '');
+}
+
+/* ─── Helper: enable Next button for the lesson containing qid ─── */
+function enableNextForQid(qid) {
+  const li = LESSONS.findIndex(l => l.qids.includes(qid));
+  if (li === -1) return;
+  const nextBtn = document.getElementById('next-' + li);
+  if (nextBtn) nextBtn.disabled = false;
 }
 
 /* ─── Selection handlers (replaces direct-grade answerXxx) ─────── */
@@ -1350,6 +1374,8 @@ function answerWord(btn, qid, chosen, correct) {
   btn.classList.add('selected');
   userSelections[qid] = chosen;
   selectedEls[qid] = btn;
+  const chk = document.getElementById('chk-' + qid); if (chk) chk.disabled = false;
+  enableNextForQid(qid);
 }
 
 function answerPic(el, qid, chosen, correct) {
@@ -1362,6 +1388,8 @@ function answerPic(el, qid, chosen, correct) {
   el.classList.add('selected');
   userSelections[qid] = chosen;
   selectedEls[qid] = el;
+  const chk = document.getElementById('chk-' + qid); if (chk) chk.disabled = false;
+  enableNextForQid(qid);
 }
 
 function answerFill(btn, qid, chosen, correct) {
@@ -1376,6 +1404,8 @@ function answerFill(btn, qid, chosen, correct) {
   btn.classList.add('selected');
   userSelections[qid] = chosen;
   selectedEls[qid] = btn;
+  const chk = document.getElementById('chk-' + qid); if (chk) chk.disabled = false;
+  enableNextForQid(qid);
 }
 
 function answerSpell(btn, qid, chosen, correct) {
@@ -1389,6 +1419,8 @@ function answerSpell(btn, qid, chosen, correct) {
   btn.classList.add('selected');
   userSelections[qid] = chosen;
   selectedEls[qid] = btn;
+  const chkS = document.getElementById('chk-' + qid); if (chkS) chkS.disabled = false;
+  enableNextForQid(qid);
 }
 
 /* ─── Grade a selection (called by injected Check button) ──────── */
@@ -1460,6 +1492,8 @@ function answerTF(btn, qid, chosen, correct) {
   btn.classList.add('selected');
   userSelections[qid] = chosen;
   selectedEls[qid] = btn;
+  const chk = document.getElementById('chk-' + qid); if (chk) chk.disabled = false;
+  enableNextForQid(qid);
 }
 
 /* ─── Missing letter check ─────────────────────────────────────── */
@@ -1489,6 +1523,9 @@ function pickMatch(qid, side, key) {
     });
     const el = document.getElementById(md.lp + key);
     if (el && !el.classList.contains('matched')) { el.classList.add('picked'); ms.left = key; }
+    const chk = document.getElementById('chk-' + qid) || document.querySelector(`[onclick="checkMatch('${qid}')"]`);
+    if (chk) chk.disabled = false;
+    enableNextForQid(qid);
   } else {
     document.querySelectorAll('[id^="' + md.rp + '"]').forEach(e => {
       if (!e.classList.contains('matched')) e.classList.remove('picked');
@@ -1544,7 +1581,12 @@ function checkMatch(qid) {
 }
 
 /* ─── Underline / Find-Mistake check ──────────────────────────── */
-function togU(el) { el.classList.toggle('underlined'); }
+function togU(el) {
+  el.classList.toggle('underlined');
+  const card = el.closest('.ex-card'); if (!card) return;
+  const btn = card.querySelector('.check-btn'); if (btn) btn.disabled = false;
+  const slide = el.closest('.q-slide'); if (slide) enableNextForQid(slide.id);
+}
 
 function checkUnderline(qid, correctWords) {
   if (scores[qid] !== undefined) return;
@@ -1603,6 +1645,10 @@ function switchLesson(li, tabEl) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.getElementById('lesson-' + li).classList.add('active');
   tabEl.classList.add('active');
+  /* Re-evaluate Next state for the first question of this lesson */
+  const firstQid = LESSONS[li].qids[0];
+  const nextBtn = document.getElementById('next-' + li);
+  if (nextBtn) nextBtn.disabled = scores[firstQid] === undefined;
   window.scrollTo({ top:0, behavior:'smooth' });
 }
 
@@ -1623,7 +1669,7 @@ function goToPage(li, page) {
   if (next) {
     const isLast = page === total - 1;
     next.textContent = isLast ? (li < 5 ? 'Next Lesson →' : '🎉 Finish!') : 'Next →';
-    next.disabled = false;
+    next.disabled = scores[qids[page]] === undefined;
   }
   if (info) info.textContent = (page + 1) + ' / ' + total;
   window.scrollTo({ top:0, behavior:'smooth' });
@@ -1633,6 +1679,11 @@ function changePage(li, dir) {
   const p     = pages[li] + dir;
   const total = LESSONS[li].qids.length;
   if (p < 0) return;
+  /* Auto-grade current question if user selected but didn't click Check */
+  if (dir > 0) {
+    const curQid = LESSONS[li].qids[pages[li]];
+    if (scores[curQid] === undefined && Q_TYPES[curQid]) gradeSelection(curQid, true);
+  }
   if (p >= total) {
     if (li < 5) {
       switchLesson(li + 1, document.querySelectorAll('.tab')[li + 1]);
@@ -1650,6 +1701,12 @@ function setScore(qid, ok) {
   scores[qid] = ok;
   const d = document.getElementById('dot-' + qid);
   if (d) { d.classList.remove('active'); d.classList.add(ok ? 'done' : 'err'); }
+  /* Enable Next/Finish for the lesson containing this qid */
+  const li = LESSONS.findIndex(l => l.qids.includes(qid));
+  if (li !== -1 && pages[li] === LESSONS[li].qids.indexOf(qid)) {
+    const nextBtn = document.getElementById('next-' + li);
+    if (nextBtn) nextBtn.disabled = false;
+  }
   updateProgress();
 }
 
